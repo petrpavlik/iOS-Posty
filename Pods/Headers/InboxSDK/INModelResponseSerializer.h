@@ -1,0 +1,1 @@
+../../InboxSDK/InboxFramework/Inbox/Helpers/INModelResponseSerializer.h

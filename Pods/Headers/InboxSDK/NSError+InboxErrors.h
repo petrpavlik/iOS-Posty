@@ -1,0 +1,1 @@
+../../InboxSDK/InboxFramework/Inbox/Categories/NSError+InboxErrors.h

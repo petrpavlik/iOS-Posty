@@ -1,0 +1,1 @@
+../../InboxSDK/InboxFramework/InboxUI/Views/INMessageContentView.h

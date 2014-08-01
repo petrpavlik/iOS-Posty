@@ -7,12 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B2286E819828B9F00185F9C /* MessageHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2286E719828B9F00185F9C /* MessageHeaderView.m */; };
+		4B29FEA21982B3C400800111 /* SkinProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B29FEA11982B3C400800111 /* SkinProvider.m */; };
+		4B2F507B197BB796000ADF06 /* MessagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2F507A197BB796000ADF06 /* MessagesTableViewController.m */; };
+		4B2F507E197BC983000ADF06 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2F507D197BC983000ADF06 /* MessageViewController.m */; };
+		4BA0A26119812326009C98F8 /* SimpleMailTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 4BA0A25F19812326009C98F8 /* SimpleMailTemplate.html */; };
+		4BC92C8A197AF1D3000058F4 /* DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC92C89197AF1D3000058F4 /* DateFormatter.m */; };
+		4BCB6440197E95E60056EA79 /* ComposeMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB643F197E95E60056EA79 /* ComposeMessageViewController.m */; };
+		4BCB6444197EB83F0056EA79 /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB6443197EB83F0056EA79 /* InputTableViewCell.m */; };
+		4BDA8D8C198103170099D186 /* TagsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA8D8B198103170099D186 /* TagsTableViewController.m */; };
 		4BFAF2A3197A6BF60040580C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2A2197A6BF60040580C /* main.m */; };
 		4BFAF2A6197A6BF60040580C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2A5197A6BF60040580C /* AppDelegate.m */; };
 		4BFAF2A9197A6BF60040580C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2A8197A6BF60040580C /* ViewController.m */; };
 		4BFAF2AC197A6BF60040580C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BFAF2AA197A6BF60040580C /* Main.storyboard */; };
 		4BFAF2AE197A6BF70040580C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BFAF2AD197A6BF70040580C /* Images.xcassets */; };
 		4BFAF2BA197A6BF70040580C /* MailClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2B9197A6BF70040580C /* MailClientTests.m */; };
+		4BFAF2C6197A6C700040580C /* ThreadsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2C5197A6C700040580C /* ThreadsTableViewController.m */; };
+		4BFAF2CA197A78180040580C /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2C9197A78180040580C /* NavigationController.m */; };
+		4BFAF2CF197A797D0040580C /* ThreadTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2CE197A797D0040580C /* ThreadTableViewCell.m */; };
+		4BFAF2D2197A86EE0040580C /* UnreadIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2D1197A86EE0040580C /* UnreadIndicatorView.m */; };
+		DCCA2AF02CEA4A62AC0824E6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EBE9880C37D4E399A6E7904 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +40,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		141879C9C690434EA1154F5D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		1EBE9880C37D4E399A6E7904 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B2286E619828B9F00185F9C /* MessageHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageHeaderView.h; path = Classes/MessageHeaderView.h; sourceTree = "<group>"; };
+		4B2286E719828B9F00185F9C /* MessageHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageHeaderView.m; path = Classes/MessageHeaderView.m; sourceTree = "<group>"; };
+		4B29FEA01982B3C400800111 /* SkinProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkinProvider.h; path = Classes/SkinProvider.h; sourceTree = "<group>"; };
+		4B29FEA11982B3C400800111 /* SkinProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SkinProvider.m; path = Classes/SkinProvider.m; sourceTree = "<group>"; };
+		4B29FEA31982D65400800111 /* MailClient.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailClient.pch; sourceTree = "<group>"; };
+		4B2F5079197BB796000ADF06 /* MessagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagesTableViewController.h; path = Classes/MessagesTableViewController.h; sourceTree = "<group>"; };
+		4B2F507A197BB796000ADF06 /* MessagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagesTableViewController.m; path = Classes/MessagesTableViewController.m; sourceTree = "<group>"; };
+		4B2F507C197BC983000ADF06 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = Classes/MessageViewController.h; sourceTree = "<group>"; };
+		4B2F507D197BC983000ADF06 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = Classes/MessageViewController.m; sourceTree = "<group>"; };
+		4BA0A25F19812326009C98F8 /* SimpleMailTemplate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = SimpleMailTemplate.html; path = Html/SimpleMailTemplate.html; sourceTree = "<group>"; };
+		4BC92C88197AF1D3000058F4 /* DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateFormatter.h; path = Classes/DateFormatter.h; sourceTree = "<group>"; };
+		4BC92C89197AF1D3000058F4 /* DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateFormatter.m; path = Classes/DateFormatter.m; sourceTree = "<group>"; };
+		4BCB643E197E95E60056EA79 /* ComposeMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeMessageViewController.h; path = Classes/ComposeMessageViewController.h; sourceTree = "<group>"; };
+		4BCB643F197E95E60056EA79 /* ComposeMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComposeMessageViewController.m; path = Classes/ComposeMessageViewController.m; sourceTree = "<group>"; };
+		4BCB6442197EB83F0056EA79 /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputTableViewCell.h; path = Classes/InputTableViewCell.h; sourceTree = "<group>"; };
+		4BCB6443197EB83F0056EA79 /* InputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InputTableViewCell.m; path = Classes/InputTableViewCell.m; sourceTree = "<group>"; };
+		4BDA8D8A198103170099D186 /* TagsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagsTableViewController.h; path = Classes/TagsTableViewController.h; sourceTree = "<group>"; };
+		4BDA8D8B198103170099D186 /* TagsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagsTableViewController.m; path = Classes/TagsTableViewController.m; sourceTree = "<group>"; };
 		4BFAF29D197A6BF60040580C /* MailClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BFAF2A1197A6BF60040580C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BFAF2A2197A6BF60040580C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -38,6 +72,14 @@
 		4BFAF2B3197A6BF70040580C /* MailClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MailClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BFAF2B8197A6BF70040580C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BFAF2B9197A6BF70040580C /* MailClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MailClientTests.m; sourceTree = "<group>"; };
+		4BFAF2C4197A6C700040580C /* ThreadsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadsTableViewController.h; path = Classes/ThreadsTableViewController.h; sourceTree = "<group>"; };
+		4BFAF2C5197A6C700040580C /* ThreadsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThreadsTableViewController.m; path = Classes/ThreadsTableViewController.m; sourceTree = "<group>"; };
+		4BFAF2C8197A78180040580C /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationController.h; path = Classes/NavigationController.h; sourceTree = "<group>"; };
+		4BFAF2C9197A78180040580C /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationController.m; path = Classes/NavigationController.m; sourceTree = "<group>"; };
+		4BFAF2CD197A797D0040580C /* ThreadTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadTableViewCell.h; path = Classes/ThreadTableViewCell.h; sourceTree = "<group>"; };
+		4BFAF2CE197A797D0040580C /* ThreadTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThreadTableViewCell.m; path = Classes/ThreadTableViewCell.m; sourceTree = "<group>"; };
+		4BFAF2D0197A86EE0040580C /* UnreadIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UnreadIndicatorView.h; path = Classes/UnreadIndicatorView.h; sourceTree = "<group>"; };
+		4BFAF2D1197A86EE0040580C /* UnreadIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UnreadIndicatorView.m; path = Classes/UnreadIndicatorView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCCA2AF02CEA4A62AC0824E6 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +101,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4BA0A25D19812314009C98F8 /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				4BA0A25F19812326009C98F8 /* SimpleMailTemplate.html */,
+			);
+			name = HTML;
+			sourceTree = "<group>";
+		};
 		4BFAF294197A6BF60040580C = {
 			isa = PBXGroup;
 			children = (
 				4BFAF29F197A6BF60040580C /* MailClient */,
 				4BFAF2B6197A6BF70040580C /* MailClientTests */,
 				4BFAF29E197A6BF60040580C /* Products */,
+				141879C9C690434EA1154F5D /* Pods.xcconfig */,
+				BC4C075B4AB343EA90E360C4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +132,9 @@
 		4BFAF29F197A6BF60040580C /* MailClient */ = {
 			isa = PBXGroup;
 			children = (
+				4BA0A25D19812314009C98F8 /* HTML */,
+				4BFAF2CC197A791A0040580C /* View */,
+				4BFAF2C3197A6C0D0040580C /* Controller */,
 				4BFAF2A4197A6BF60040580C /* AppDelegate.h */,
 				4BFAF2A5197A6BF60040580C /* AppDelegate.m */,
 				4BFAF2A7197A6BF60040580C /* ViewController.h */,
@@ -86,6 +142,9 @@
 				4BFAF2AA197A6BF60040580C /* Main.storyboard */,
 				4BFAF2AD197A6BF70040580C /* Images.xcassets */,
 				4BFAF2A0197A6BF60040580C /* Supporting Files */,
+				4BC92C88197AF1D3000058F4 /* DateFormatter.h */,
+				4BC92C89197AF1D3000058F4 /* DateFormatter.m */,
+				4B29FEA31982D65400800111 /* MailClient.pch */,
 			);
 			path = MailClient;
 			sourceTree = "<group>";
@@ -116,6 +175,50 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		4BFAF2C3197A6C0D0040580C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4BFAF2C4197A6C700040580C /* ThreadsTableViewController.h */,
+				4BFAF2C5197A6C700040580C /* ThreadsTableViewController.m */,
+				4BFAF2C8197A78180040580C /* NavigationController.h */,
+				4BFAF2C9197A78180040580C /* NavigationController.m */,
+				4B2F5079197BB796000ADF06 /* MessagesTableViewController.h */,
+				4B2F507A197BB796000ADF06 /* MessagesTableViewController.m */,
+				4B2F507C197BC983000ADF06 /* MessageViewController.h */,
+				4B2F507D197BC983000ADF06 /* MessageViewController.m */,
+				4BCB643E197E95E60056EA79 /* ComposeMessageViewController.h */,
+				4BCB643F197E95E60056EA79 /* ComposeMessageViewController.m */,
+				4BDA8D8A198103170099D186 /* TagsTableViewController.h */,
+				4BDA8D8B198103170099D186 /* TagsTableViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		4BFAF2CC197A791A0040580C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4BFAF2CD197A797D0040580C /* ThreadTableViewCell.h */,
+				4BFAF2CE197A797D0040580C /* ThreadTableViewCell.m */,
+				4BFAF2D0197A86EE0040580C /* UnreadIndicatorView.h */,
+				4BFAF2D1197A86EE0040580C /* UnreadIndicatorView.m */,
+				4BCB6442197EB83F0056EA79 /* InputTableViewCell.h */,
+				4BCB6443197EB83F0056EA79 /* InputTableViewCell.m */,
+				4B2286E619828B9F00185F9C /* MessageHeaderView.h */,
+				4B2286E719828B9F00185F9C /* MessageHeaderView.m */,
+				4B29FEA01982B3C400800111 /* SkinProvider.h */,
+				4B29FEA11982B3C400800111 /* SkinProvider.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		BC4C075B4AB343EA90E360C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1EBE9880C37D4E399A6E7904 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -123,9 +226,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4BFAF2BD197A6BF70040580C /* Build configuration list for PBXNativeTarget "MailClient" */;
 			buildPhases = (
+				8147A0899476411B99288DEE /* Check Pods Manifest.lock */,
 				4BFAF299197A6BF60040580C /* Sources */,
 				4BFAF29A197A6BF60040580C /* Frameworks */,
 				4BFAF29B197A6BF60040580C /* Resources */,
+				5AE432FE500F4E09868767F8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -165,6 +270,7 @@
 				TargetAttributes = {
 					4BFAF29C197A6BF60040580C = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = JL8TC3L46B;
 					};
 					4BFAF2B2197A6BF70040580C = {
 						CreatedOnToolsVersion = 6.0;
@@ -198,6 +304,7 @@
 			files = (
 				4BFAF2AC197A6BF60040580C /* Main.storyboard in Resources */,
 				4BFAF2AE197A6BF70040580C /* Images.xcassets in Resources */,
+				4BA0A26119812326009C98F8 /* SimpleMailTemplate.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,14 +317,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5AE432FE500F4E09868767F8 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8147A0899476411B99288DEE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4BFAF299197A6BF60040580C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BCB6440197E95E60056EA79 /* ComposeMessageViewController.m in Sources */,
+				4BDA8D8C198103170099D186 /* TagsTableViewController.m in Sources */,
 				4BFAF2A9197A6BF60040580C /* ViewController.m in Sources */,
+				4B2F507E197BC983000ADF06 /* MessageViewController.m in Sources */,
+				4B29FEA21982B3C400800111 /* SkinProvider.m in Sources */,
+				4B2F507B197BB796000ADF06 /* MessagesTableViewController.m in Sources */,
+				4BFAF2CF197A797D0040580C /* ThreadTableViewCell.m in Sources */,
+				4BFAF2C6197A6C700040580C /* ThreadsTableViewController.m in Sources */,
+				4BFAF2CA197A78180040580C /* NavigationController.m in Sources */,
+				4BC92C8A197AF1D3000058F4 /* DateFormatter.m in Sources */,
 				4BFAF2A6197A6BF60040580C /* AppDelegate.m in Sources */,
 				4BFAF2A3197A6BF60040580C /* main.m in Sources */,
+				4B2286E819828B9F00185F9C /* MessageHeaderView.m in Sources */,
+				4BCB6444197EB83F0056EA79 /* InputTableViewCell.m in Sources */,
+				4BFAF2D2197A86EE0040580C /* UnreadIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,9 +481,12 @@
 		};
 		4BFAF2BE197A6BF70040580C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 141879C9C690434EA1154F5D /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MailClient/MailClient.pch";
 				INFOPLIST_FILE = MailClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -340,9 +495,12 @@
 		};
 		4BFAF2BF197A6BF70040580C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 141879C9C690434EA1154F5D /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MailClient/MailClient.pch";
 				INFOPLIST_FILE = MailClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -402,6 +560,7 @@
 				4BFAF2BF197A6BF70040580C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4BFAF2C0197A6BF70040580C /* Build configuration list for PBXNativeTarget "MailClientTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +569,7 @@
 				4BFAF2C2197A6BF70040580C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

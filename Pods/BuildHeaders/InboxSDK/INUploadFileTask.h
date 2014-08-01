@@ -1,0 +1,1 @@
+../../InboxSDK/InboxFramework/Inbox/Models/API Calls/INUploadFileTask.h

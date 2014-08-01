@@ -1,0 +1,1 @@
+../../InboxSDK/InboxFramework/Submodules/AFNetworking/AFNetworking/AFURLSessionManager.h
