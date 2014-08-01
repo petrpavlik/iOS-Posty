@@ -1,1 +1,0 @@
-../../InboxSDK/InboxFramework/Submodules/AFNetworking/AFNetworking/AFURLRequestSerialization.h

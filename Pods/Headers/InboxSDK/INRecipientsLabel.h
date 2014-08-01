@@ -1,1 +1,0 @@
-../../InboxSDK/InboxFramework/InboxUI/Views/INRecipientsLabel.h

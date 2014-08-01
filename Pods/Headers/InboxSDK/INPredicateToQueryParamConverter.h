@@ -1,1 +1,0 @@
-../../InboxSDK/InboxFramework/Inbox/Helpers/INPredicateToQueryParamConverter.h

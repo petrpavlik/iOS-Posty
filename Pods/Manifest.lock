@@ -1,19 +1,22 @@
 PODS:
   - Bolts (1.1.0)
-  - Facebook-iOS-SDK (3.16):
+  - Facebook-iOS-SDK (3.16.2):
     - Bolts
-  - InboxSDK (0.0.2)
+  - InboxKit (0.0.2)
   - Parse (1.2.20):
     - Facebook-iOS-SDK (~> 3.11)
+  - TTTAttributedLabel (1.10.1)
 
 DEPENDENCIES:
-  - InboxSDK
+  - InboxKit
   - Parse
+  - TTTAttributedLabel
 
 SPEC CHECKSUMS:
   Bolts: 91c2af8eae1d44e1dd75946a5b0ae04a43ea43e4
-  Facebook-iOS-SDK: 82ad03cb9ce568855057e20a099054cf1e34ef12
-  InboxSDK: c2bcb5ab3063df8b9fef2a589814f725fdd2ca31
+  Facebook-iOS-SDK: 34eef640c2cc4c8618ba0f574ad2b290e07f1b4e
+  InboxKit: 7c44ab7c3bc71111708d17f7705d90602f76ffb4
   Parse: 28c0dc54f30201a369d29a2f76c09fa43b2add16
+  TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
 
 COCOAPODS: 0.33.1

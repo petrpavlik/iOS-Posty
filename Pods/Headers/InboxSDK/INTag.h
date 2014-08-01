@@ -1,1 +1,0 @@
-../../InboxSDK/InboxFramework/Inbox/Models/Concrete Classes/INTag.h
