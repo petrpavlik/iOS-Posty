@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class TagsTableViewController;
+@class INTag;
+
+@protocol TagsViewControllerDelegate <NSObject>
+
+- (void)tagsViewController:(TagsTableViewController*)controller didSelectTag:(INTag*)tag;
+
+@end
+
 @interface TagsTableViewController : UITableViewController
+
+@property(nonatomic, weak) id <TagsViewControllerDelegate> delegate;
 
 @end

@@ -17,7 +17,7 @@
 
 #import "TagsTableViewController.h"
 
-@interface ThreadsTableViewController () <INModelProviderDelegate>
+@interface ThreadsTableViewController () <INModelProviderDelegate, TagsViewControllerDelegate>
 
 @property(nonatomic, strong) INThreadProvider* threadProvider;
 
@@ -32,7 +32,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeEmailSelected)];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"X" style:UIBarButtonItemStylePlain target:self action:@selector(testSelected)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Tags" style:UIBarButtonItemStylePlain target:self action:@selector(testSelected)];
     
     SkinProvider* skin = [SkinProvider sharedInstance];
     
@@ -48,12 +48,12 @@
     [self.tableView registerClass:[ThreadTableViewCell class] forCellReuseIdentifier:@"ThreadTableViewCell"];
     
     
-    /*[[INAPIManager shared] authenticateWithAuthToken:@"no-open-source-auth" andCompletionBlock:^(BOOL success, NSError *error) {
+    [[INAPIManager shared] authenticateWithAuthToken:@"no-open-source-auth" andCompletionBlock:^(BOOL success, NSError *error) {
         
         if (error) {
             [[[UIAlertView alloc] initWithTitle:@"Auth Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
             return;
-        }*/
+        }
         
         INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
         self.threadProvider = [namespace newThreadProvider];
@@ -61,7 +61,7 @@
         self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:@"tagIDs = 'inbox'"];
         self.threadProvider.itemRange = NSMakeRange(0, 100);
         self.threadProvider.delegate = self;
-    //}];
+    }];
 }
 
 #pragma mark -
@@ -199,10 +199,23 @@
 
 - (void)testSelected {
     
-    TagsTableViewController* controller = [[TagsTableViewController alloc] init];
+    TagsTableViewController* controller = [[TagsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    controller.delegate = self;
+    
     NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
     
     [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+#pragma mark -
+
+- (void)tagsViewController:(TagsTableViewController *)controller didSelectTag:(INTag *)tag {
+    
+    self.title = tag.name;
+    
+    self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"tagIDs = '%@'", tag.ID]];
+    
+    [self.threadProvider refresh];
 }
 
 @end
