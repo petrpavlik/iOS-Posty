@@ -27,6 +27,12 @@
     
     //[UIColor colorWithRed:0.341 green:0.671 blue:1.000 alpha:1]
     self.view.tintColor = skin.tintColor;
+    
+    [self.navigationBar setBackgroundImage:[[UIImage alloc] init]
+                                      forBarPosition:UIBarPositionAny
+                                          barMetrics:UIBarMetricsDefault];
+    
+    [self.navigationBar setShadowImage:[[UIImage alloc] init]];
 }
 
 

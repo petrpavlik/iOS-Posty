@@ -43,7 +43,7 @@
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_valueTextField]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:NSDictionaryOfVariableBindings(_titleLabel, _valueTextField)]];
     
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel(>=44)]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleLabel, _valueTextField)]];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_titleLabel, _valueTextField)]];
 }
 
 - (void)setSelected:(BOOL)selected {

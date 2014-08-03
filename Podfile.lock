@@ -1,21 +1,24 @@
 PODS:
-  - Bolts (1.1.0)
+  - Bolts (1.1.1)
   - Facebook-iOS-SDK (3.16.2):
     - Bolts
   - InboxKit (0.0.2)
+  - MBContactPicker (0.1.4)
   - Parse (1.2.20):
     - Facebook-iOS-SDK (~> 3.11)
   - TTTAttributedLabel (1.10.1)
 
 DEPENDENCIES:
   - InboxKit
+  - MBContactPicker
   - Parse
   - TTTAttributedLabel
 
 SPEC CHECKSUMS:
-  Bolts: 91c2af8eae1d44e1dd75946a5b0ae04a43ea43e4
+  Bolts: 0ca796081c3e7c139bd86d6903c27f1b83036a5d
   Facebook-iOS-SDK: 34eef640c2cc4c8618ba0f574ad2b290e07f1b4e
   InboxKit: 7c44ab7c3bc71111708d17f7705d90602f76ffb4
+  MBContactPicker: f3ad9c973cdc8ed6caa92a104dbc314f155f3ea6
   Parse: 28c0dc54f30201a369d29a2f76c09fa43b2add16
   TTTAttributedLabel: 94bb04f1e005616002dd2cee0262a0082e533627
 

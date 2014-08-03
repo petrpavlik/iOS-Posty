@@ -9,6 +9,7 @@
 #import "ComposeMessageViewController.h"
 #import <Inbox.h>
 #import "InputTableViewCell.h"
+#import "ContactsTableViewCell.h"
 
 @interface ComposeMessageViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -16,6 +17,8 @@
 @property(nonatomic, strong) UITableView* headerTableView;
 
 @property(nonatomic) NSString* subject;
+
+@property(nonatomic) NSInteger heightOfContactsCell;
 
 @end
 
@@ -46,6 +49,7 @@
     _headerTableView.scrollEnabled = NO;
     //tableView.registerClass(InputTableViewCell.classForCoder(), forCellReuseIdentifier: "InputTableViewCell")
     [_headerTableView registerClass:[InputTableViewCell class] forCellReuseIdentifier:@"InputTableViewCell"];
+    [_headerTableView registerClass:[ContactsTableViewCell class] forCellReuseIdentifier:@"ContactsTableViewCell"];
     
     [_bodyTextView addSubview:_headerTableView];
     
@@ -56,6 +60,8 @@
     else {
         self.title = @"New Email";
     }
+    
+    self.heightOfContactsCell = 44;
 
 }
 
@@ -106,25 +112,34 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 44;
+    if (indexPath.row == 0) {
+        return self.heightOfContactsCell;
+    }
+    else {
+        return 44;
+    }
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    InputTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InputTableViewCell" forIndexPath:indexPath];
-    
-    if (indexPath.row==0) {
+    if (indexPath.row == 0) {
         
-        cell.titleLabel.text = @"To:";
-        cell.valueTextField.text = nil;
+        ContactsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ContactsTableViewCell" forIndexPath:indexPath];
+        
+        //cell.contactsPicker.delegate = self;
+        //cell.contactsPicker.datasource = self;
+        
+        return cell;
     }
     else {
         
+        InputTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"InputTableViewCell" forIndexPath:indexPath];
+        
         cell.titleLabel.text = @"Subject:";
         cell.valueTextField.text = nil;
+        
+        return cell;
     }
-    
-    return cell;
 }
 
 #pragma mark -
@@ -142,5 +157,6 @@
     
     return cell.valueTextField.text;
 }
+
 
 @end

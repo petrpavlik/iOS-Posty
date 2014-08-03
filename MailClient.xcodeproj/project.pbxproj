@@ -12,6 +12,8 @@
 		4B2F507B197BB796000ADF06 /* MessagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2F507A197BB796000ADF06 /* MessagesTableViewController.m */; };
 		4B2F507E197BC983000ADF06 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2F507D197BC983000ADF06 /* MessageViewController.m */; };
 		4BA0A26119812326009C98F8 /* SimpleMailTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 4BA0A25F19812326009C98F8 /* SimpleMailTemplate.html */; };
+		4BA1F5A2198D2DC2008352ED /* ThreadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1F5A1198D2DC2008352ED /* ThreadsViewController.m */; };
+		4BA1F5A5198D5DBB008352ED /* ContactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1F5A4198D5DBB008352ED /* ContactsTableViewCell.m */; };
 		4BC92C8A197AF1D3000058F4 /* DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC92C89197AF1D3000058F4 /* DateFormatter.m */; };
 		4BCB6440197E95E60056EA79 /* ComposeMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB643F197E95E60056EA79 /* ComposeMessageViewController.m */; };
 		4BCB6444197EB83F0056EA79 /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB6443197EB83F0056EA79 /* InputTableViewCell.m */; };
@@ -52,6 +54,10 @@
 		4B2F507C197BC983000ADF06 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = Classes/MessageViewController.h; sourceTree = "<group>"; };
 		4B2F507D197BC983000ADF06 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = Classes/MessageViewController.m; sourceTree = "<group>"; };
 		4BA0A25F19812326009C98F8 /* SimpleMailTemplate.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = SimpleMailTemplate.html; path = Html/SimpleMailTemplate.html; sourceTree = "<group>"; };
+		4BA1F5A0198D2DC2008352ED /* ThreadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadsViewController.h; path = Classes/ThreadsViewController.h; sourceTree = "<group>"; };
+		4BA1F5A1198D2DC2008352ED /* ThreadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThreadsViewController.m; path = Classes/ThreadsViewController.m; sourceTree = "<group>"; };
+		4BA1F5A3198D5DBB008352ED /* ContactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsTableViewCell.h; path = Classes/ContactsTableViewCell.h; sourceTree = "<group>"; };
+		4BA1F5A4198D5DBB008352ED /* ContactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsTableViewCell.m; path = Classes/ContactsTableViewCell.m; sourceTree = "<group>"; };
 		4BC92C88197AF1D3000058F4 /* DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateFormatter.h; path = Classes/DateFormatter.h; sourceTree = "<group>"; };
 		4BC92C89197AF1D3000058F4 /* DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateFormatter.m; path = Classes/DateFormatter.m; sourceTree = "<group>"; };
 		4BCB643E197E95E60056EA79 /* ComposeMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeMessageViewController.h; path = Classes/ComposeMessageViewController.h; sourceTree = "<group>"; };
@@ -190,6 +196,8 @@
 				4BCB643F197E95E60056EA79 /* ComposeMessageViewController.m */,
 				4BDA8D8A198103170099D186 /* TagsTableViewController.h */,
 				4BDA8D8B198103170099D186 /* TagsTableViewController.m */,
+				4BA1F5A0198D2DC2008352ED /* ThreadsViewController.h */,
+				4BA1F5A1198D2DC2008352ED /* ThreadsViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -207,6 +215,8 @@
 				4B2286E719828B9F00185F9C /* MessageHeaderView.m */,
 				4B29FEA01982B3C400800111 /* SkinProvider.h */,
 				4B29FEA11982B3C400800111 /* SkinProvider.m */,
+				4BA1F5A3198D5DBB008352ED /* ContactsTableViewCell.h */,
+				4BA1F5A4198D5DBB008352ED /* ContactsTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -359,6 +369,7 @@
 				4BDA8D8C198103170099D186 /* TagsTableViewController.m in Sources */,
 				4BFAF2A9197A6BF60040580C /* ViewController.m in Sources */,
 				4B2F507E197BC983000ADF06 /* MessageViewController.m in Sources */,
+				4BA1F5A5198D5DBB008352ED /* ContactsTableViewCell.m in Sources */,
 				4B29FEA21982B3C400800111 /* SkinProvider.m in Sources */,
 				4B2F507B197BB796000ADF06 /* MessagesTableViewController.m in Sources */,
 				4BFAF2CF197A797D0040580C /* ThreadTableViewCell.m in Sources */,
@@ -367,6 +378,7 @@
 				4BC92C8A197AF1D3000058F4 /* DateFormatter.m in Sources */,
 				4BFAF2A6197A6BF60040580C /* AppDelegate.m in Sources */,
 				4BFAF2A3197A6BF60040580C /* main.m in Sources */,
+				4BA1F5A2198D2DC2008352ED /* ThreadsViewController.m in Sources */,
 				4B2286E819828B9F00185F9C /* MessageHeaderView.m in Sources */,
 				4BCB6444197EB83F0056EA79 /* InputTableViewCell.m in Sources */,
 				4BFAF2D2197A86EE0040580C /* UnreadIndicatorView.m in Sources */,

@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TTTAttributedLabel.h>
 
 @interface MessageHeaderView : UIView
 
 @property(nonatomic, strong) UILabel* subjectLabel;
-@property(nonatomic, strong) UILabel* fromLabel;
-@property(nonatomic, strong) UILabel* toLabel;
+@property(nonatomic, strong) TTTAttributedLabel* fromLabel;
+@property(nonatomic, strong) TTTAttributedLabel* toLabel;
+@property(nonatomic, strong) UILabel* dateLabel;
 
 @end

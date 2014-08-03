@@ -12,8 +12,9 @@
 #import "MessageHeaderView.h"
 #import "ComposeMessageViewController.h"
 #import "NavigationController.h"
+#import "DateFormatter.h"
 
-@interface MessageViewController ()
+@interface MessageViewController () <TTTAttributedLabelDelegate>
 
 @property(nonatomic, strong) UIWebView* webView;
 @property(nonatomic, strong) MessageHeaderView* headerView;
@@ -38,7 +39,7 @@
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _webView.backgroundColor = [UIColor whiteColor];
     _webView.dataDetectorTypes = UIDataDetectorTypeAll;
-    _webView.scrollView.contentInset = UIEdgeInsetsMake(88, 0, 0, 0);
+    _webView.scrollView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
     [self.view addSubview:_webView];
     
     
@@ -46,6 +47,7 @@
     headerView.frame = CGRectMake(0, 0, 320, 88);
     [_webView addSubview:headerView];
     _headerView = headerView;
+    _headerView.fromLabel.delegate = self;
     
     if (_message) {
         [self displayMessage:_message];
@@ -142,6 +144,20 @@
     }
     _headerView.fromLabel.text = from;
     
+    for (NSDictionary* fromDictionary in _message.from) {
+        
+        NSString* urlString = [NSString stringWithFormat:@"mailto:%@", fromDictionary[@"email"]];
+        NSURL* url = [NSURL URLWithString:urlString];
+        
+        if ([fromDictionary[@"name"] length]) {
+            [_headerView.fromLabel addLinkToURL:url withRange:[_headerView.fromLabel.text rangeOfString:fromDictionary[@"name"]]];
+        }
+        else {
+            [_headerView.fromLabel addLinkToURL:url withRange:[_headerView.fromLabel.text rangeOfString:fromDictionary[@"email"]]];
+        }
+    }
+    
+    
     NSString* to = @"To: ";
     for (NSDictionary* toDictionary in _message.to) {
         
@@ -154,10 +170,32 @@
     }
     _headerView.toLabel.text = to;
     
+    for (NSDictionary* toDictionary in _message.to) {
+        
+        NSString* urlString = [NSString stringWithFormat:@"mailto:%@", toDictionary[@"email"]];
+        NSURL* url = [NSURL URLWithString:urlString];
+        
+        if ([toDictionary[@"name"] length]) {
+            [_headerView.toLabel addLinkToURL:url withRange:[_headerView.toLabel.text rangeOfString:toDictionary[@"name"]]];
+        }
+        else {
+            [_headerView.toLabel addLinkToURL:url withRange:[_headerView.toLabel.text rangeOfString:toDictionary[@"email"]]];
+        }
+    }
+
+    
+    
+    _headerView.dateLabel.text = [DateFormatter stringFromDate:_message.date];
     
     if ([_message.body containsString:@"<head"]) {
+     
+        //TODO: add default formating right after <head>
+        NSString* css = @"<style> body { font-size: 17px; font-family: \"Helvetica Neue\"; } a { color: #007AFF; text-decoration: none; } </style>";
         
-        [_webView loadHTMLString:_message.body baseURL:nil];
+        NSRange range = [_message.body rangeOfString:@"<head>"];
+        NSString* body = [_message.body stringByReplacingCharactersInRange:NSMakeRange(range.location+range.length, 0) withString:css];
+    
+        [_webView loadHTMLString:body baseURL:nil];
     }
     else {
         
@@ -168,6 +206,23 @@
         
         [_webView loadHTMLString:content baseURL:nil];
     }
+}
+
+#pragma mark -
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    NSString* email = [url.description stringByReplacingOccurrencesOfString:@"mailto:" withString:@""];
+    
+    NSLog(@"%@", email);
+    
+    NSParameterAssert(_message); //TODO: make sure it's also loaded
+    
+    ComposeMessageViewController* controller = [[ComposeMessageViewController alloc] init];
+    
+    NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
+    
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end

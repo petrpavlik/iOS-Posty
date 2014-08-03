@@ -23,28 +23,41 @@
     
     self.backgroundColor = [UIColor whiteColor];
     
+    UIFont* headlineFont = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    
     _subjectLabel = [UILabel new];
     _subjectLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _subjectLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    _subjectLabel.font = [headlineFont fontWithSize:headlineFont.pointSize*1.2];
     [self addSubview:_subjectLabel];
     
-    _fromLabel = [UILabel new];
+    _fromLabel = [TTTAttributedLabel new];
     _fromLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    _fromLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};
+    
+    
     [self addSubview:_fromLabel];
     
-    _toLabel = [UILabel new];
+    _toLabel = [TTTAttributedLabel new];
     _toLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    _toLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    _toLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    _toLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};
     [self addSubview:_toLabel];
     
-    NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _toLabel);
+    _dateLabel = [UILabel new];
+    _dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _dateLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    _dateLabel.numberOfLines = 0;
+    [self addSubview:_dateLabel];
+    
+    NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _toLabel, _dateLabel);
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_subjectLabel]-|" options:0 metrics:nil views:bindings]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_fromLabel]-|" options:0 metrics:nil views:bindings]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_toLabel]-|" options:0 metrics:nil views:bindings]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_dateLabel]-|" options:0 metrics:nil views:bindings]];
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_subjectLabel][_fromLabel][_toLabel]-|" options:0 metrics:nil views:bindings]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_fromLabel][_toLabel]-12-[_subjectLabel][_dateLabel]" options:0 metrics:nil views:bindings]];
     
     
 }
