@@ -29,8 +29,9 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreSelected)],
-    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-delete"] style:UIBarButtonItemStylePlain target:self action:@selector(deleteSelected)],
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreSelected)],
+    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-trash"] style:UIBarButtonItemStylePlain target:self action:@selector(deleteSelected)],
+                                                [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-star"] style:UIBarButtonItemStylePlain target:self action:@selector(starSelected)],
                                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-reply-all"] style:UIBarButtonItemStylePlain target:self action:@selector(replyAllSelected)]];
     
     NSParameterAssert(_message);
@@ -39,7 +40,7 @@
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _webView.backgroundColor = [UIColor whiteColor];
     _webView.dataDetectorTypes = UIDataDetectorTypeAll;
-    _webView.scrollView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
+    _webView.scrollView.contentInset = UIEdgeInsetsMake(106, 0, 0, 0);
     [self.view addSubview:_webView];
     
     
