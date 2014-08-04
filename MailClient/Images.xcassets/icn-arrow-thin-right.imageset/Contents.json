@@ -6,12 +6,12 @@
     {
       "idiom" : "iphone",
       "scale" : "1x",
-      "filename" : "icn-trash.png"
+      "filename" : "icn-arrow-thin-right.png"
     },
     {
       "idiom" : "iphone",
       "scale" : "2x",
-      "filename" : "icn-trash@2x.png"
+      "filename" : "icn-arrow-thin-right@2x.png"
     }
   ],
   "info" : {

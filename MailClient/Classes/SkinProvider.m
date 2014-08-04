@@ -35,7 +35,7 @@
 }
 
 - (UIColor*)cellSeparatorColor {
-    return [UIColor colorWithRed:0.878 green:0.878 blue:0.878 alpha:1];
+    return self.textColor;
 }
 
 - (UIColor*)navigationBarColor {
@@ -44,7 +44,15 @@
 }
 
 - (UIColor*)navigationBarTitleTextColor {
-    return [UIColor blackColor];
+    return [UIColor colorWithRed:71/255.0 green:82/255.0 blue:93/255.0 alpha:1];
+}
+
+- (UIColor*)headerTextColor {
+    return self.navigationBarTitleTextColor;
+}
+
+- (UIColor*)textColor {
+    return [UIColor colorWithRed:103/255.0 green:114/255.0 blue:119/255.0 alpha:1];
 }
 
 @end

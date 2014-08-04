@@ -22,10 +22,21 @@
 
 - (void)configure {
     
-    /*_textView = [UITextView alloc] initWithCoder:<#(NSCoder *)#>
+    SkinProvider* skin = [SkinProvider sharedInstance];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_contactsPicker]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_contactsPicker)]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_contactsPicker]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_contactsPicker)]];*/
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.backgroundColor = skin.cellBackgroundColor;
+    
+    //_textView = [[UITextView alloc] initWithFrame:CGRectZero textContainer:<#(NSTextContainer *)#>];
+    _textView = [[UITextView alloc] initWithFrame:CGRectZero];
+    _textView.translatesAutoresizingMaskIntoConstraints = NO;
+    _textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    _textView.textColor = skin.textColor;
+    _textView.text = @"To: ";
+    [self.contentView addSubview:_textView];
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_textView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textView)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_textView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textView)]];
 }
 
 @end

@@ -25,6 +25,11 @@
 
 @implementation ThreadsTableViewController
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -62,13 +67,25 @@
         self.threadProvider.itemRange = NSMakeRange(0, 100);
         self.threadProvider.delegate = self;
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 #pragma mark -
 
 - (void)refresh {
     
+    if (self.refreshControl.isRefreshing) {
+        return;
+    }
+    
+    [self.refreshControl beginRefreshing];
+    
     [self.threadProvider refresh];
+    
+    [self.threadProvider countUnreadItemsWithCallback:^(long count) {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
+    }];
 }
 
 #pragma mark - Table view data source
@@ -216,6 +233,13 @@
     self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"tagIDs = '%@'", tag.ID]];
     
     [self.threadProvider refresh];
+}
+
+#pragma mark -
+
+- (void)applicationWillEnterForegroundNotification:(NSNotification*)notification {
+    
+    [self refresh];
 }
 
 @end

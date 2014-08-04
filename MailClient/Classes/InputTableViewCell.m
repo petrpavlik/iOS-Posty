@@ -33,12 +33,13 @@
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _titleLabel.textColor = [UIColor blackColor];
     _titleLabel.numberOfLines = 1;
+    _titleLabel.textColor = skin.textColor;
     [_titleLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [contentView addSubview:_titleLabel];
     
     _valueTextField = [UITextField new];
     _valueTextField.translatesAutoresizingMaskIntoConstraints = NO;
-    _valueTextField.textColor = [UIColor blackColor];
+    _valueTextField.textColor = skin.headerTextColor;
     [contentView addSubview:_valueTextField];
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_titleLabel]-[_valueTextField]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:NSDictionaryOfVariableBindings(_titleLabel, _valueTextField)]];

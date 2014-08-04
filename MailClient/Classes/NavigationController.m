@@ -33,6 +33,8 @@
                                           barMetrics:UIBarMetricsDefault];
     
     [self.navigationBar setShadowImage:[[UIImage alloc] init]];
+    
+    self.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: skin.navigationBarTitleTextColor};
 }
 
 

@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 
+#import "MessageViewController.h"
+#import "NavigationController.h"
+
 @interface AppDelegate ()
 
 @end
@@ -76,7 +79,27 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [PFPush handlePush:userInfo];
+    
+    //FIXME: does not work
+    
+    if (application.applicationState != UIApplicationStateActive) {
+        
+        NSString* messageId = userInfo[@"messageId"];
+        
+        if (!messageId.length) {
+            
+            [[[UIAlertView alloc] initWithTitle:nil message:@"Unexpected format of push notification" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+            
+            return;
+        }
+        
+        MessageViewController* controller = [[MessageViewController alloc] init];
+        controller.messageId = messageId;
+        
+        NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
+        
+        [self.window.rootViewController presentViewController:navigationController animated:YES completion:nil];
+    }
 }
 
 @end

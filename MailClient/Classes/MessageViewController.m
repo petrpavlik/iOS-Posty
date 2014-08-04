@@ -13,8 +13,9 @@
 #import "ComposeMessageViewController.h"
 #import "NavigationController.h"
 #import "DateFormatter.h"
+#import "WebViewController.h"
 
-@interface MessageViewController () <TTTAttributedLabelDelegate>
+@interface MessageViewController () <TTTAttributedLabelDelegate, UIWebViewDelegate>
 
 @property(nonatomic, strong) UIWebView* webView;
 @property(nonatomic, strong) MessageHeaderView* headerView;
@@ -41,6 +42,7 @@
     _webView.backgroundColor = [UIColor whiteColor];
     _webView.dataDetectorTypes = UIDataDetectorTypeAll;
     _webView.scrollView.contentInset = UIEdgeInsetsMake(106, 0, 0, 0);
+    _webView.delegate = self;
     [self.view addSubview:_webView];
     
     
@@ -108,6 +110,7 @@
 
 - (void)deleteSelected {
     
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)replyAllSelected {
@@ -120,6 +123,11 @@
     NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
     
     [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)starSelected {
+    
+    [self.message.thread star];
 }
 
 #pragma mark -
@@ -191,7 +199,7 @@
     if ([_message.body containsString:@"<head"]) {
      
         //TODO: add default formating right after <head>
-        NSString* css = @"<style> body { font-size: 17px; font-family: \"Helvetica Neue\"; } a { color: #007AFF; text-decoration: none; } </style>";
+        NSString* css = @"<style> body { color: #677277; font-size: 17px; font-family: \"Helvetica Neue\"; } a { color: #007AFF; text-decoration: none; } </style>";
         
         NSRange range = [_message.body rangeOfString:@"<head>"];
         NSString* body = [_message.body stringByReplacingCharactersInRange:NSMakeRange(range.location+range.length, 0) withString:css];
@@ -224,6 +232,22 @@
     NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
     
     [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+#pragma mark -
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    if ((navigationType == UIWebViewNavigationTypeOther) || (navigationType == UIWebViewNavigationTypeReload)) {
+        return YES;
+    }
+    
+    WebViewController* controller = [[WebViewController alloc] init];
+    controller.url = request.URL;
+    
+    [self.navigationController  pushViewController:controller animated:YES];
+    
+    return NO;
 }
 
 @end

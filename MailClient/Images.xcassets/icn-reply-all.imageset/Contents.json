@@ -1,1 +1,34 @@
-{"images":[{"idiom":"universal"},{"idiom":"universal","scale":"1x","filename":"icn-reply-all.png"},{"idiom":"universal","scale":"2x","filename":"icn-reply-all@2x.png"},{"filename":"icn-reply-all@2x.png","scale":"2x","idiom":"iphone"},{"filename":"icn-reply-all.png","scale":"1x","idiom":"iphone"}],"info":{"version":1,"author":"ioshat"}}
+{
+  "images" : [
+    {
+      "idiom" : "universal"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "1x",
+      "filename" : "icn-reply-all.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "filename" : "icn-reply-all@2x.png"
+    },
+    {
+      "idiom" : "iphone"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "filename" : "icn-reply-all.png"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "filename" : "icn-reply-all@2x.png"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

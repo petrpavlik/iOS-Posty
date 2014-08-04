@@ -21,6 +21,8 @@
 
 - (void)configure {
     
+    SkinProvider* skin = [SkinProvider sharedInstance];
+    
     self.backgroundColor = [UIColor whiteColor];
     
     UIFont* headlineFont = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
@@ -28,13 +30,14 @@
     _subjectLabel = [UILabel new];
     _subjectLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _subjectLabel.font = [headlineFont fontWithSize:headlineFont.pointSize*1.2];
-    _subjectLabel.numberOfLines = 0; //TODO: allow multiline
+    _subjectLabel.numberOfLines = 1; //TODO: allow multiline
+    _subjectLabel.textColor = skin.headerTextColor;
     [self addSubview:_subjectLabel];
     
     _fromLabel = [TTTAttributedLabel new];
     _fromLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    _fromLabel.textColor = [UIColor colorWithRed:0.557 green:0.557 blue:0.576 alpha:1];
+    _fromLabel.textColor = skin.textColor;
     _fromLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};
     
     
@@ -43,7 +46,7 @@
     _toLabel = [TTTAttributedLabel new];
     _toLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _toLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-    _toLabel.textColor = [UIColor colorWithRed:0.557 green:0.557 blue:0.576 alpha:1];
+    _toLabel.textColor = skin.textColor;
     _toLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};
     [self addSubview:_toLabel];
     
@@ -51,12 +54,12 @@
     _dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _dateLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     _dateLabel.numberOfLines = 0;
-    _dateLabel.textColor = [UIColor colorWithRed:0.557 green:0.557 blue:0.576 alpha:1];
+    _dateLabel.textColor = skin.textColor;
     [self addSubview:_dateLabel];
     
     UIView* separator = [UIView new];
     separator.translatesAutoresizingMaskIntoConstraints = NO;
-    separator.backgroundColor = [UIColor colorWithRed:0.557 green:0.557 blue:0.576 alpha:1];;
+    separator.backgroundColor = skin.cellSeparatorColor;
     [self addSubview:separator];
     
     NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _toLabel, _dateLabel, separator);

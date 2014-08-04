@@ -19,5 +19,7 @@
 - (UIColor*)navigationBarColor;
 - (UIColor*)navigationBarTitleTextColor;
 - (UIColor*)cellSeparatorColor;
+- (UIColor*)headerTextColor;
+- (UIColor*)textColor;
 
 @end
