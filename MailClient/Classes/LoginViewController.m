@@ -117,7 +117,11 @@
                         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                             
                             if (error) {
-                                // Hooray! Let them use the app now.
+                                
+                                weakSelf.infoLabel.text = error.localizedDescription;
+                                weakSelf.activityIndicator.hidden = YES;
+                                weakSelf.retryButton.hidden = NO;
+                                
                             } else {
                                 
                                 [weakSelf displayThreadsAnimated:YES];
@@ -126,8 +130,14 @@
                     }
                     else {
                         
-                        [weakSelf displayThreadsAnimated:YES];
+                        weakSelf.infoLabel.text = error.localizedDescription;
+                        weakSelf.activityIndicator.hidden = YES;
+                        weakSelf.retryButton.hidden = NO;
                     }
+                }
+                else {
+                    
+                    [weakSelf displayThreadsAnimated:YES];
                 }
             }];
         }

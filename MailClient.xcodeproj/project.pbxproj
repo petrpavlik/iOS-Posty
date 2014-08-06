@@ -21,6 +21,9 @@
 		4BDA8D8C198103170099D186 /* TagsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA8D8B198103170099D186 /* TagsTableViewController.m */; };
 		4BE323B619924B4800071AEA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE323B519924B4800071AEA /* LoginViewController.m */; };
 		4BE323B919924E5100071AEA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE323B819924E5100071AEA /* CloudKit.framework */; };
+		4BE323BC199267A300071AEA /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE323BB199267A300071AEA /* SettingsTableViewController.m */; };
+		4BE323C01992850700071AEA /* ContactsTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE323BF1992850700071AEA /* ContactsTextStorage.m */; };
+		4BE323C3199286DF00071AEA /* ContactsTextViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE323C2199286DF00071AEA /* ContactsTextViewDelegate.m */; };
 		4BFAF2A3197A6BF60040580C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2A2197A6BF60040580C /* main.m */; };
 		4BFAF2A6197A6BF60040580C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2A5197A6BF60040580C /* AppDelegate.m */; };
 		4BFAF2A9197A6BF60040580C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2A8197A6BF60040580C /* ViewController.m */; };
@@ -75,6 +78,12 @@
 		4BE323B519924B4800071AEA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Classes/LoginViewController.m; sourceTree = "<group>"; };
 		4BE323B719924E3900071AEA /* MailClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MailClient.entitlements; sourceTree = "<group>"; };
 		4BE323B819924E5100071AEA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		4BE323BA199267A300071AEA /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsTableViewController.h; path = Classes/SettingsTableViewController.h; sourceTree = "<group>"; };
+		4BE323BB199267A300071AEA /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsTableViewController.m; path = Classes/SettingsTableViewController.m; sourceTree = "<group>"; };
+		4BE323BE1992850700071AEA /* ContactsTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsTextStorage.h; path = Classes/ContactsTextStorage.h; sourceTree = "<group>"; };
+		4BE323BF1992850700071AEA /* ContactsTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsTextStorage.m; path = Classes/ContactsTextStorage.m; sourceTree = "<group>"; };
+		4BE323C1199286DF00071AEA /* ContactsTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsTextViewDelegate.h; path = Classes/ContactsTextViewDelegate.h; sourceTree = "<group>"; };
+		4BE323C2199286DF00071AEA /* ContactsTextViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsTextViewDelegate.m; path = Classes/ContactsTextViewDelegate.m; sourceTree = "<group>"; };
 		4BFAF29D197A6BF60040580C /* MailClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BFAF2A1197A6BF60040580C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BFAF2A2197A6BF60040580C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -125,6 +134,17 @@
 			name = HTML;
 			sourceTree = "<group>";
 		};
+		4BE323BD199284DA00071AEA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4BE323BE1992850700071AEA /* ContactsTextStorage.h */,
+				4BE323BF1992850700071AEA /* ContactsTextStorage.m */,
+				4BE323C1199286DF00071AEA /* ContactsTextViewDelegate.h */,
+				4BE323C2199286DF00071AEA /* ContactsTextViewDelegate.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		4BFAF294197A6BF60040580C = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +168,7 @@
 		4BFAF29F197A6BF60040580C /* MailClient */ = {
 			isa = PBXGroup;
 			children = (
+				4BE323BD199284DA00071AEA /* Model */,
 				4BE323B719924E3900071AEA /* MailClient.entitlements */,
 				4BA0A25D19812314009C98F8 /* HTML */,
 				4BFAF2CC197A791A0040580C /* View */,
@@ -213,6 +234,8 @@
 				4B81AB44198EFCD200D0FF3A /* WebViewController.m */,
 				4BE323B419924B4800071AEA /* LoginViewController.h */,
 				4BE323B519924B4800071AEA /* LoginViewController.m */,
+				4BE323BA199267A300071AEA /* SettingsTableViewController.h */,
+				4BE323BB199267A300071AEA /* SettingsTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -398,12 +421,15 @@
 				4BFAF2CA197A78180040580C /* NavigationController.m in Sources */,
 				4BC92C8A197AF1D3000058F4 /* DateFormatter.m in Sources */,
 				4BFAF2A6197A6BF60040580C /* AppDelegate.m in Sources */,
+				4BE323BC199267A300071AEA /* SettingsTableViewController.m in Sources */,
 				4BFAF2A3197A6BF60040580C /* main.m in Sources */,
 				4B81AB45198EFCD200D0FF3A /* WebViewController.m in Sources */,
 				4BA1F5A2198D2DC2008352ED /* ThreadsViewController.m in Sources */,
 				4BE323B619924B4800071AEA /* LoginViewController.m in Sources */,
+				4BE323C3199286DF00071AEA /* ContactsTextViewDelegate.m in Sources */,
 				4B2286E819828B9F00185F9C /* MessageHeaderView.m in Sources */,
 				4BCB6444197EB83F0056EA79 /* InputTableViewCell.m in Sources */,
+				4BE323C01992850700071AEA /* ContactsTextStorage.m in Sources */,
 				4BFAF2D2197A86EE0040580C /* UnreadIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

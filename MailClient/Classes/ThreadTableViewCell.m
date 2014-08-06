@@ -36,28 +36,28 @@
     _subjectLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _subjectLabel.numberOfLines = 1;
     _subjectLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    _subjectLabel.textColor = [UIColor blackColor];
+    _subjectLabel.textColor = skin.headerTextColor;
     [contentView addSubview:_subjectLabel];
     
     _fromLabel = [UILabel new];
     _fromLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _fromLabel.numberOfLines = 1;
     _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-    _fromLabel.textColor = [UIColor blackColor];
+    _fromLabel.textColor = skin.headerTextColor;
     [contentView addSubview:_fromLabel];
     
     _dateLabel = [UILabel new];
     _dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _dateLabel.numberOfLines = 1;
     _dateLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-    _dateLabel.textColor = [UIColor colorWithRed:0.345 green:0.345 blue:0.345 alpha:1];
+    _dateLabel.textColor = skin.textColor;
     [contentView addSubview:_dateLabel];
     
     _snippetLabel = [UILabel new];
     _snippetLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _snippetLabel.numberOfLines = 2;
     _snippetLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    _snippetLabel.textColor = [UIColor colorWithRed:0.345 green:0.345 blue:0.345 alpha:1];
+    _snippetLabel.textColor = skin.textColor;
     [contentView addSubview:_snippetLabel];
     
     _unreadIndicatorView = [[UnreadIndicatorView alloc] initWithFrame:CGRectZero];

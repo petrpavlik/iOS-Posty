@@ -62,6 +62,26 @@
     }
     
     self.heightOfContactsCell = 44;
+    
+    NSString* htmlSignarute = @"<br/><br/>Sent with <a href=\"http://postyapp.com\">Posty for iOS</a>";
+    
+    NSAttributedString* signarute = [[NSAttributedString alloc] initWithData:[htmlSignarute dataUsingEncoding:NSUTF8StringEncoding]
+                                     options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                               NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)}
+                          documentAttributes:nil error:nil];
+    
+    NSMutableAttributedString* mutableSignarure = [signarute mutableCopy];
+    
+    [mutableSignarure removeAttribute:NSFontAttributeName range:NSMakeRange(0, signarute.length)];
+    [mutableSignarure removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, signarute.length)];
+    [mutableSignarure removeAttribute:NSParagraphStyleAttributeName range:NSMakeRange(0, signarute.length)];
+    
+    _bodyTextView.attributedText = mutableSignarure;
+    
+    /*signarute enumerateAttribute:NSFontAttributeName inRange:NSMakeRange(0, signarute.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+        
+        
+    }*/
 
 }
 

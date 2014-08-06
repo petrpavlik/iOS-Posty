@@ -24,9 +24,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    SkinProvider* skin = [SkinProvider sharedInstance];
+    
     self.title = @"Tags";
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(closeSelected)];
+    
+    self.tableView.separatorColor = skin.cellSeparatorColor;
+    self.tableView.backgroundColor = skin.cellBackgroundColor;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
     

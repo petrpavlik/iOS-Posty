@@ -13,7 +13,7 @@
 #import "NavigationController.h"
 #import <Inbox.h>
 
-@interface ThreadsViewController ()
+@interface ThreadsViewController () <TagsViewControllerDelegate>
 
 @property(nonatomic, strong) ThreadsTableViewController* threadsTableViewController;
 @property(nonatomic, strong) INThreadProvider* threadProvider;

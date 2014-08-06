@@ -35,11 +35,24 @@
     
     self.title = @"Inbox";
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeEmailSelected)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"document-edit"] style:UIBarButtonItemStylePlain target:self action:@selector(composeEmailSelected)];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Tags" style:UIBarButtonItemStylePlain target:self action:@selector(testSelected)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-gear"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsSelected)];
     
     SkinProvider* skin = [SkinProvider sharedInstance];
+    
+    UIButton* tagsButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    tagsButton.frame = CGRectMake(0, 0, 120, 44);
+    [tagsButton setTitle:@"Inbox" forState:UIControlStateNormal];
+    [tagsButton addTarget:self action:@selector(testSelected) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = tagsButton;
+    
+    UIView* borderView = [[UIView alloc] initWithFrame:CGRectMake(0, 7, 120, 30)];
+    borderView.layer.borderColor = tagsButton.tintColor.CGColor;
+    borderView.layer.borderWidth = 1;
+    borderView.userInteractionEnabled = NO;
+    borderView.layer.cornerRadius = 4;
+    [tagsButton addSubview:borderView];
     
     self.tableView.backgroundColor = skin.cellBackgroundColor;
     self.tableView.separatorColor = skin.cellSeparatorColor;
@@ -66,6 +79,8 @@
         self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:@"tagIDs = 'inbox'"];
         self.threadProvider.itemRange = NSMakeRange(0, 100);
         self.threadProvider.delegate = self;
+        
+        [self refresh];
     }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];

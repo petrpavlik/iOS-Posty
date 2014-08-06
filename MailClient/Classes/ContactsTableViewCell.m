@@ -7,6 +7,14 @@
 //
 
 #import "ContactsTableViewCell.h"
+#import "ContactsTextStorage.h"
+#import "ContactsTextViewDelegate.h"
+
+@interface ContactsTableViewCell ()
+
+@property(nonatomic, strong) ContactsTextViewDelegate* textViewDelegate;
+
+@end
 
 @implementation ContactsTableViewCell
 
@@ -24,14 +32,25 @@
     
     SkinProvider* skin = [SkinProvider sharedInstance];
     
+    _textViewDelegate = [ContactsTextViewDelegate new];
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = skin.cellBackgroundColor;
     
-    //_textView = [[UITextView alloc] initWithFrame:CGRectZero textContainer:<#(NSTextContainer *)#>];
-    _textView = [[UITextView alloc] initWithFrame:CGRectZero];
+    NSTextStorage *textStorage = [ContactsTextStorage new];
+    
+    NSLayoutManager *layoutManager = [NSLayoutManager new];
+    [textStorage addLayoutManager: layoutManager];
+    
+    NSTextContainer *textContainer = [NSTextContainer new];
+    [layoutManager addTextContainer: textContainer];
+    
+    _textView = [[UITextView alloc] initWithFrame:CGRectZero textContainer:textContainer];
     _textView.translatesAutoresizingMaskIntoConstraints = NO;
     _textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _textView.textColor = skin.textColor;
+    [_textView setKeyboardType:UIKeyboardTypeEmailAddress];
+    _textView.delegate = _textViewDelegate;
     _textView.text = @"To: ";
     [self.contentView addSubview:_textView];
     
