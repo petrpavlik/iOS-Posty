@@ -19,6 +19,8 @@
 		4BCB6440197E95E60056EA79 /* ComposeMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB643F197E95E60056EA79 /* ComposeMessageViewController.m */; };
 		4BCB6444197EB83F0056EA79 /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB6443197EB83F0056EA79 /* InputTableViewCell.m */; };
 		4BDA8D8C198103170099D186 /* TagsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA8D8B198103170099D186 /* TagsTableViewController.m */; };
+		4BE323B619924B4800071AEA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE323B519924B4800071AEA /* LoginViewController.m */; };
+		4BE323B919924E5100071AEA /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE323B819924E5100071AEA /* CloudKit.framework */; };
 		4BFAF2A3197A6BF60040580C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2A2197A6BF60040580C /* main.m */; };
 		4BFAF2A6197A6BF60040580C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2A5197A6BF60040580C /* AppDelegate.m */; };
 		4BFAF2A9197A6BF60040580C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BFAF2A8197A6BF60040580C /* ViewController.m */; };
@@ -69,6 +71,10 @@
 		4BCB6443197EB83F0056EA79 /* InputTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InputTableViewCell.m; path = Classes/InputTableViewCell.m; sourceTree = "<group>"; };
 		4BDA8D8A198103170099D186 /* TagsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagsTableViewController.h; path = Classes/TagsTableViewController.h; sourceTree = "<group>"; };
 		4BDA8D8B198103170099D186 /* TagsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagsTableViewController.m; path = Classes/TagsTableViewController.m; sourceTree = "<group>"; };
+		4BE323B419924B4800071AEA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Classes/LoginViewController.h; sourceTree = "<group>"; };
+		4BE323B519924B4800071AEA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Classes/LoginViewController.m; sourceTree = "<group>"; };
+		4BE323B719924E3900071AEA /* MailClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MailClient.entitlements; sourceTree = "<group>"; };
+		4BE323B819924E5100071AEA /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		4BFAF29D197A6BF60040580C /* MailClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MailClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BFAF2A1197A6BF60040580C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BFAF2A2197A6BF60040580C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -97,6 +103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCCA2AF02CEA4A62AC0824E6 /* libPods.a in Frameworks */,
+				4BE323B919924E5100071AEA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +148,7 @@
 		4BFAF29F197A6BF60040580C /* MailClient */ = {
 			isa = PBXGroup;
 			children = (
+				4BE323B719924E3900071AEA /* MailClient.entitlements */,
 				4BA0A25D19812314009C98F8 /* HTML */,
 				4BFAF2CC197A791A0040580C /* View */,
 				4BFAF2C3197A6C0D0040580C /* Controller */,
@@ -203,6 +211,8 @@
 				4BA1F5A1198D2DC2008352ED /* ThreadsViewController.m */,
 				4B81AB43198EFCD200D0FF3A /* WebViewController.h */,
 				4B81AB44198EFCD200D0FF3A /* WebViewController.m */,
+				4BE323B419924B4800071AEA /* LoginViewController.h */,
+				4BE323B519924B4800071AEA /* LoginViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -229,6 +239,7 @@
 		BC4C075B4AB343EA90E360C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4BE323B819924E5100071AEA /* CloudKit.framework */,
 				1EBE9880C37D4E399A6E7904 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -286,6 +297,11 @@
 					4BFAF29C197A6BF60040580C = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = JL8TC3L46B;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					4BFAF2B2197A6BF70040580C = {
 						CreatedOnToolsVersion = 6.0;
@@ -385,6 +401,7 @@
 				4BFAF2A3197A6BF60040580C /* main.m in Sources */,
 				4B81AB45198EFCD200D0FF3A /* WebViewController.m in Sources */,
 				4BA1F5A2198D2DC2008352ED /* ThreadsViewController.m in Sources */,
+				4BE323B619924B4800071AEA /* LoginViewController.m in Sources */,
 				4B2286E819828B9F00185F9C /* MessageHeaderView.m in Sources */,
 				4BCB6444197EB83F0056EA79 /* InputTableViewCell.m in Sources */,
 				4BFAF2D2197A86EE0040580C /* UnreadIndicatorView.m in Sources */,
@@ -503,11 +520,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = MailClient/MailClient.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MailClient/MailClient.pch";
 				INFOPLIST_FILE = MailClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -517,11 +537,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = MailClient/MailClient.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MailClient/MailClient.pch";
 				INFOPLIST_FILE = MailClient/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
