@@ -1,1 +1,23 @@
-{"images":[{"filename":"icn-gear@2x.png","scale":"2x","idiom":"iphone"},{"filename":"icn-gear.png","scale":"1x","idiom":"iphone"}],"info":{"version":1,"author":"ioshat"}}
+{
+  "images" : [
+    {
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "filename" : "icn-gear.png"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "filename" : "icn-gear@2x.png"
+    },
+    {
+      "idiom" : "iphone",
+      "subtype" : "retina4",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

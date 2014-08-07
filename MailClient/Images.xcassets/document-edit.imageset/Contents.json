@@ -1,1 +1,23 @@
-{"images":[{"filename":"document-edit@2x.png","scale":"2x","idiom":"iphone"},{"filename":"document-edit.png","scale":"1x","idiom":"iphone"}],"info":{"version":1,"author":"ioshat"}}
+{
+  "images" : [
+    {
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "filename" : "document-edit.png"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "filename" : "document-edit@2x.png"
+    },
+    {
+      "idiom" : "iphone",
+      "subtype" : "retina4",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

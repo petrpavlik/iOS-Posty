@@ -9,7 +9,7 @@
 #import "MessagesTableViewController.h"
 #import <Inbox.h>
 
-#import "ThreadTableViewCell.h"
+#import "MessagePreviewTableViewCell.h"
 #import "DateFormatter.h"
 #import "MessageViewController.h"
 
@@ -32,7 +32,7 @@
     self.tableView.backgroundColor = skin.cellBackgroundColor;
     self.tableView.separatorColor = skin.cellSeparatorColor;
     self.tableView.tableFooterView = [UIView new];
-    [self.tableView registerClass:[ThreadTableViewCell class] forCellReuseIdentifier:@"ThreadTableViewCell"];
+    [self.tableView registerClass:[MessagePreviewTableViewCell class] forCellReuseIdentifier:@"MessagePreviewTableViewCell"];
     
     _messageProvider = [[INMessageProvider alloc] initForMessagesInThread:_threadId andNamespaceID:_namespaceId];
     _messageProvider.delegate = self;
@@ -58,30 +58,48 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ThreadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ThreadTableViewCell" forIndexPath:indexPath];
+    
+    MessagePreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessagePreviewTableViewCell" forIndexPath:indexPath];
     
     // Configure the cell...
     
     INMessage * message = [[self.messageProvider items] objectAtIndex: indexPath.row];
     
-    NSString* from = nil;
-    if (message.from.count) {
+    cell.snippetLabel.text = message.body;
+    
+    if (message.subject.length) {
+        cell.headerView.subjectLabel.text = message.subject;
+    }
+    else {
+        cell.headerView.subjectLabel.text = @"No subject";
+    }
+    
+    NSString* from = @"From: ";
+    for (NSDictionary* fromDictionary in message.from) {
         
-        NSDictionary* participant = message.from[0];
-        
-        if (participant[@"name"]) {
-            from = participant[@"name"];
+        if ([fromDictionary[@"name"] length]) {
+            from = [from stringByAppendingString:fromDictionary[@"name"]];
         }
-        else if (participant[@"email"]) {
-            from = participant[@"email"];
+        else {
+            from = [from stringByAppendingString:fromDictionary[@"email"]];
+        }
+    }
+    cell.headerView.fromLabel.text = from;
+    
+    NSString* to = @"To: ";
+    for (NSDictionary* toDictionary in message.to) {
+        
+        if ([toDictionary[@"name"] length]) {
+            to = [to stringByAppendingString:toDictionary[@"name"]];
+        }
+        else {
+            to = [to stringByAppendingString:toDictionary[@"email"]];
         }
     }
     
-    cell.snippetLabel.text = message.body;
-    cell.subjectLabel.text = message.subject;
-    cell.unreadIndicatorView.hidden = message.unread;
-    cell.fromLabel.text = from;
-    cell.dateLabel.text = [DateFormatter stringFromDate:message.date];
+    cell.headerView.toLabel.text = to;
+    
+    cell.headerView.dateLabel.text = [DateFormatter stringFromDate:message.date];
     
     return cell;
 }

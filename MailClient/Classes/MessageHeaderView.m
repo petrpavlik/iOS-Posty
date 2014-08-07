@@ -30,7 +30,7 @@
     _subjectLabel = [UILabel new];
     _subjectLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _subjectLabel.font = [headlineFont fontWithSize:headlineFont.pointSize*1.2];
-    _subjectLabel.numberOfLines = 1; //TODO: allow multiline
+    _subjectLabel.numberOfLines = 0;
     _subjectLabel.textColor = skin.headerTextColor;
     [self addSubview:_subjectLabel];
     
@@ -70,7 +70,7 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_dateLabel]-|" options:0 metrics:nil views:bindings]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[separator]|" options:0 metrics:nil views:bindings]];
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_fromLabel][_toLabel]-8-[separator(0.5)]-10-[_subjectLabel][_dateLabel]" options:0 metrics:nil views:bindings]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_fromLabel][_toLabel]-8-[separator(0.5)]-10-[_subjectLabel][_dateLabel]|" options:0 metrics:nil views:bindings]];
     
     
 }
