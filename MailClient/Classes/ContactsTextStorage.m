@@ -52,22 +52,33 @@
 {
     [super processEditing];
     
-    [self removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(4, self.string.length-4)];
+    NSString* string = self.string;
     
-    NSString* contacts = [self.string stringByReplacingOccurrencesOfString:@"To: " withString:@""];
+    SkinProvider* skin = [SkinProvider sharedInstance];
     
-    __block NSInteger startIndex = 0;
+    [self removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, string.length)];
+    [self addAttribute:NSForegroundColorAttributeName value:skin.textColor range:NSMakeRange(0, string.length)];
+    
+    NSString* contacts = [string stringByReplacingOccurrencesOfString:@"To: " withString:@""];
  
     NSArray* components = [contacts componentsSeparatedByString:@","];
     [components enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-       
+        
         NSString* component = [(NSString*)obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        NSRange range = [self.string rangeOfString:component options:0 range:NSMakeRange(startIndex, self.string.length-startIndex)];
+        NSLog(@"enumerated '%@'", component);
         
-        [self addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+        if (!component.length) {
+            return;
+        }
         
-        startIndex +=  range.length;
+        NSRange range = [string rangeOfString:component options:0];
+        
+        if (range.location < 4) {
+            NSParameterAssert(NO);
+        }
+        
+        [self addAttribute:NSForegroundColorAttributeName value:skin.tintColor range:range];
     }];
 }
 

@@ -16,34 +16,6 @@
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
     
-    /*NSString* text = textView.text;
-    
-    NSString* lastComponent = [[text componentsSeparatedByString:@","] lastObject];
-    
-    if (lastComponent) {
-        
-        NSString* trimmedLastComponent = [lastComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        if ([self NSStringIsValidEmail:trimmedLastComponent]) {
-          
-            textView.text = [textView.text stringByAppendingString:@", "];
-            return NO;
-        }
-        else {
-            
-            textView.text = [textView.text stringByReplacingOccurrencesOfString:lastComponent withString:@""];
-            
-            if ([[textView.text substringFromIndex:textView.text.length-1] isEqualToString:@","]) {
-                textView.text = [textView.text substringToIndex:textView.text.length-1];
-            }
-            
-            return YES;
-        }
-    }
-    else {
-        return YES;
-    }*/
-    
     return YES;
 }
 
@@ -53,6 +25,24 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     
+    if (textView.text.length == 4) { //'To: '
+        return;
+    }
+    
+    NSString* text = textView.text;
+    
+    NSRange rangeOfLastSeparator = [text rangeOfString:@"," options:NSBackwardsSearch];
+    
+    if (rangeOfLastSeparator.location != NSNotFound) {
+        
+        NSString* lastComponent = [text substringFromIndex:rangeOfLastSeparator.location+1];
+        
+        NSString* trimmedLastComponent = [lastComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        if (![self NSStringIsValidEmail:trimmedLastComponent]) {
+            textView.text = [text substringToIndex:rangeOfLastSeparator.location];
+        }
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -63,8 +53,8 @@
          
         NSString* lastComponent = [[text componentsSeparatedByString:@","] lastObject];
         
-        NSString* trimmedLastComponent = [lastComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        trimmedLastComponent = [lastComponent stringByReplacingOccurrencesOfString:@"To: " withString:@""];
+        NSString* trimmedLastComponent = [lastComponent stringByReplacingOccurrencesOfString:@"To: " withString:@""];
+        trimmedLastComponent = [trimmedLastComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
          
         if (trimmedLastComponent.length) {
          
