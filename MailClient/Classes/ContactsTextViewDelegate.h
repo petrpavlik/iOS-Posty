@@ -10,5 +10,4 @@
 
 @interface ContactsTextViewDelegate : NSObject <UITextViewDelegate>
 
-
 @end

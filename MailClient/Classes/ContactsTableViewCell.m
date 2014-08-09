@@ -45,7 +45,7 @@
     NSTextContainer *textContainer = [NSTextContainer new];
     [layoutManager addTextContainer: textContainer];
     
-    _textView = [[UITextView alloc] initWithFrame:CGRectZero textContainer:textContainer];
+    _textView = [[ContactsTextView alloc] initWithFrame:CGRectZero textContainer:textContainer];
     _textView.translatesAutoresizingMaskIntoConstraints = NO;
     _textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _textView.textColor = skin.textColor;

@@ -17,6 +17,7 @@
 @property(nonatomic, strong) UITableView* headerTableView;
 
 @property(nonatomic) NSString* subject;
+@property(nonatomic, readonly) ContactsTextView* contactsInputTextView;
 
 @property(nonatomic) NSInteger heightOfContactsCell;
 
@@ -114,9 +115,25 @@
         draft = [[INDraft alloc] initInNamespace:namespace];
     }
 
-    [draft setSubject: @"New message composed"];
-    [draft setBody:[NSDate date].description];
-    [draft setTo:@[@{@"name": @"Petr Pavlik", @"email": @"petrpavlik@me.com"}]];
+    [draft setSubject: self.subject];
+    
+    NSDictionary *documentAttributes = [NSDictionary dictionaryWithObjectsAndKeys:NSHTMLTextDocumentType, NSDocumentTypeDocumentAttribute, nil];
+    NSData *htmlData = [self.bodyTextView.attributedText dataFromRange:NSMakeRange(0, self.bodyTextView.attributedText.length) documentAttributes:documentAttributes error:nil];
+    
+    NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+    
+    [draft setBody:htmlString];
+    
+    NSMutableArray* recepients = [NSMutableArray new];
+    for (NSString* email in self.contactsInputTextView.emails) {
+        [recepients addObject:@{@"email": email}];
+    }
+    
+    if (!recepients.count) {
+        return;
+    }
+    
+    [draft setTo:recepients];
     
     [draft send];
     
@@ -176,6 +193,13 @@
     InputTableViewCell* cell = (InputTableViewCell*)[self.headerTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     
     return cell.valueTextField.text;
+}
+
+- (ContactsTextView*)contactsInputTextView {
+    
+    ContactsTableViewCell* cell = (ContactsTableViewCell*)[self.headerTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    return cell.textView;
 }
 
 

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ContactsTextView.h"
 
 @interface ContactsTableViewCell : UITableViewCell
 
-@property(nonatomic, strong) UITextView* textView;
+@property(nonatomic, strong) ContactsTextView* textView;
 
 @end
