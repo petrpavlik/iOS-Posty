@@ -15,6 +15,9 @@
 #import "DateFormatter.h"
 #import "WebViewController.h"
 
+#import "MessageHeaderView+InboxKit.h"
+#import "UIWebView+InboxKit.h"
+
 @interface MessageViewController () <TTTAttributedLabelDelegate, UIWebViewDelegate>
 
 @property(nonatomic, strong) UIWebView* webView;
@@ -134,87 +137,9 @@
 
 - (void)displayMessage:(INMessage*)message {
     
-    if (_message.subject.length) {
-        _headerView.subjectLabel.text = _message.subject;
-    }
-    else {
-        _headerView.subjectLabel.text = @"No subject";
-    }
+    [self.headerView setupWithMessage:message];
     
-    NSString* from = @"From: ";
-    for (NSDictionary* fromDictionary in _message.from) {
-        
-        if ([fromDictionary[@"name"] length]) {
-            from = [from stringByAppendingString:fromDictionary[@"name"]];
-        }
-        else {
-            from = [from stringByAppendingString:fromDictionary[@"email"]];
-        }
-    }
-    _headerView.fromLabel.text = from;
-    
-    for (NSDictionary* fromDictionary in _message.from) {
-        
-        NSString* urlString = [NSString stringWithFormat:@"mailto:%@", fromDictionary[@"email"]];
-        NSURL* url = [NSURL URLWithString:urlString];
-        
-        if ([fromDictionary[@"name"] length]) {
-            [_headerView.fromLabel addLinkToURL:url withRange:[_headerView.fromLabel.text rangeOfString:fromDictionary[@"name"]]];
-        }
-        else {
-            [_headerView.fromLabel addLinkToURL:url withRange:[_headerView.fromLabel.text rangeOfString:fromDictionary[@"email"]]];
-        }
-    }
-    
-    
-    NSString* to = @"To: ";
-    for (NSDictionary* toDictionary in _message.to) {
-        
-        if ([toDictionary[@"name"] length]) {
-            to = [to stringByAppendingString:toDictionary[@"name"]];
-        }
-        else {
-            to = [to stringByAppendingString:toDictionary[@"email"]];
-        }
-    }
-    _headerView.toLabel.text = to;
-    
-    for (NSDictionary* toDictionary in _message.to) {
-        
-        NSString* urlString = [NSString stringWithFormat:@"mailto:%@", toDictionary[@"email"]];
-        NSURL* url = [NSURL URLWithString:urlString];
-        
-        if ([toDictionary[@"name"] length]) {
-            [_headerView.toLabel addLinkToURL:url withRange:[_headerView.toLabel.text rangeOfString:toDictionary[@"name"]]];
-        }
-        else {
-            [_headerView.toLabel addLinkToURL:url withRange:[_headerView.toLabel.text rangeOfString:toDictionary[@"email"]]];
-        }
-    }
-
-    
-    
-    _headerView.dateLabel.text = [DateFormatter stringFromDate:_message.date];
-    
-    if ([_message.body containsString:@"<head"]) {
-     
-        //TODO: add default formating right after <head>
-        NSString* css = @"<style> body { color: #677277; font-size: 17px; font-family: \"Helvetica Neue\"; } a { color: #007AFF; text-decoration: none; } </style>";
-        
-        NSRange range = [_message.body rangeOfString:@"<head>"];
-        NSString* body = [_message.body stringByReplacingCharactersInRange:NSMakeRange(range.location+range.length, 0) withString:css];
-    
-        [_webView loadHTMLString:body baseURL:nil];
-    }
-    else {
-        
-        NSString* templatePath = [[NSBundle mainBundle] pathForResource:@"SimpleMailTemplate" ofType:@"html"];
-        NSString* content = [[NSString alloc] initWithData:[[NSFileManager defaultManager] contentsAtPath:templatePath] encoding:NSUTF8StringEncoding];
-        
-        content = [content stringByReplacingOccurrencesOfString:@"%@" withString:_message.body];
-        
-        [_webView loadHTMLString:content baseURL:nil];
-    }
+    [self.webView setupWithMessage:message];
 }
 
 #pragma mark -

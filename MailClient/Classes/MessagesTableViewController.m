@@ -12,9 +12,17 @@
 #import "MessagePreviewTableViewCell.h"
 #import "DateFormatter.h"
 #import "MessageViewController.h"
+#import "MessageTableViewCell.h"
+#import "WebViewController.h"
+#import "ComposeMessageViewController.h"
+#import "NavigationController.h"
 
-@interface MessagesTableViewController () <INModelProviderDelegate>
+#import "MessageHeaderView+InboxKit.h"
+#import "UIWebView+InboxKit.h"
 
+@interface MessagesTableViewController () <INModelProviderDelegate, MessageTableViewCellDelegate>
+
+@property(nonatomic) BOOL heightOfLatestMessageAlreadyDetected;
 @property(nonatomic, strong) INMessageProvider* messageProvider;
 
 @end
@@ -33,6 +41,13 @@
     self.tableView.separatorColor = skin.cellSeparatorColor;
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerClass:[MessagePreviewTableViewCell class] forCellReuseIdentifier:@"MessagePreviewTableViewCell"];
+    [self.tableView registerClass:[MessageTableViewCell class] forCellReuseIdentifier:@"MessageTableViewCell"];
+    
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreSelected)],
+                                                [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-trash"] style:UIBarButtonItemStylePlain target:self action:@selector(deleteSelected)],
+                                                [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-star"] style:UIBarButtonItemStylePlain target:self action:@selector(starSelected)],
+                                                [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-reply-all"] style:UIBarButtonItemStylePlain target:self action:@selector(replyAllSelected)]];
+    
     
     _messageProvider = [[INMessageProvider alloc] initForMessagesInThread:_threadId andNamespaceID:_namespaceId];
     _messageProvider.delegate = self;
@@ -59,54 +74,32 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MessagePreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessagePreviewTableViewCell" forIndexPath:indexPath];
-    
     // Configure the cell...
     
     INMessage * message = [[self.messageProvider items] objectAtIndex: indexPath.row];
     
-    cell.snippetLabel.text = message.body;
-    
-    if (message.subject.length) {
-        cell.headerView.subjectLabel.text = message.subject;
+    if (indexPath.row == 0) {
+        
+        MessageTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"MessageTableViewCell" forIndexPath:indexPath];
+        
+        cell.delegate = self;
+        
+        [cell.headerView setupWithMessage:message];
+        
+        [cell.contentWebView setupWithMessage:message];
+        
+        return cell;
     }
     else {
-        cell.headerView.subjectLabel.text = @"No subject";
-    }
-    
-    NSString* from = @"From: ";
-    for (NSDictionary* fromDictionary in message.from) {
         
-        if ([fromDictionary[@"name"] length]) {
-            from = [from stringByAppendingString:fromDictionary[@"name"]];
-        }
-        else {
-            from = [from stringByAppendingString:fromDictionary[@"email"]];
-        }
-    }
-    cell.headerView.fromLabel.text = from;
-    
-    NSString* to = @"To: ";
-    for (NSDictionary* toDictionary in message.to) {
+        MessagePreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessagePreviewTableViewCell" forIndexPath:indexPath];
         
-        if ([toDictionary[@"name"] length]) {
-            to = [to stringByAppendingString:toDictionary[@"name"]];
-        }
-        else {
-            to = [to stringByAppendingString:toDictionary[@"email"]];
-        }
+        cell.snippetLabel.text = message.body;
+        
+        [cell.headerView setupWithMessage:message];
+        
+        return cell;
     }
-    
-    cell.headerView.toLabel.text = to;
-    
-    cell.headerView.dateLabel.text = [DateFormatter stringFromDate:message.date];
-    
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 88;
 }
 
 #pragma mark -
@@ -151,5 +144,77 @@
     //[self.refreshControl endRefreshing];
 }
 
+#pragma mark -
+
+- (void)messageCellDidRequestReload:(MessageTableViewCell *)cell {
+    
+    if (self.heightOfLatestMessageAlreadyDetected) {
+        return;
+    }
+    
+    self.heightOfLatestMessageAlreadyDetected = YES;
+    
+    [self.tableView reloadData];
+}
+
+- (void)messageCell:(MessagesTableViewController *)cell didSelectURL:(NSURL *)url {
+    
+    WebViewController* controller = [[WebViewController alloc] init];
+    controller.url = url;
+    
+    [self.navigationController  pushViewController:controller animated:YES];
+}
+
+#pragma mark -
+
+#pragma mark -
+
+- (void)moreSelected {
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Reply to Lucy" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Forward Message" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Flag Message" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Mark as Unread" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }]];
+    
+    SkinProvider* skin = [SkinProvider sharedInstance];
+    
+    alert.view.tintColor = skin.tintColor;
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)deleteSelected {
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)replyAllSelected {
+    
+    INMessage * message = [[self.messageProvider items] objectAtIndex: 0];
+    
+    ComposeMessageViewController* controller = [[ComposeMessageViewController alloc] init];
+    controller.messageToReplyTo = message;
+    
+    NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
+    
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
 
 @end

@@ -12,4 +12,6 @@
 
 @property(nonatomic, strong) NSURL* url;
 
++ (void)presentWithURL:(NSURL*)url fromViewController:(UIViewController*)controller;
+
 @end

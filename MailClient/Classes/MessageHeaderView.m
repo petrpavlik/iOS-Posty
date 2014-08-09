@@ -38,8 +38,7 @@
     _fromLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _fromLabel.textColor = skin.textColor;
-    _fromLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};
-    
+    _fromLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};    
     
     [self addSubview:_fromLabel];
     

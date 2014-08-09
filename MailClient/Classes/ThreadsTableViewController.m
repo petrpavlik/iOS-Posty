@@ -65,13 +65,7 @@
     
     [self.tableView registerClass:[ThreadTableViewCell class] forCellReuseIdentifier:@"ThreadTableViewCell"];
     
-    
-    [[INAPIManager shared] authenticateWithAuthToken:@"no-open-source-auth" andCompletionBlock:^(BOOL success, NSError *error) {
-        
-        if (error) {
-            [[[UIAlertView alloc] initWithTitle:@"Auth Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
-            return;
-        }
+    if ([INAPIManager shared]) {
         
         INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
         self.threadProvider = [namespace newThreadProvider];
@@ -81,7 +75,26 @@
         self.threadProvider.delegate = self;
         
         [self refresh];
-    }];
+    }
+    else {
+        
+        [[INAPIManager shared] authenticateWithAuthToken:@"no-open-source-auth" andCompletionBlock:^(BOOL success, NSError *error) {
+            
+            if (error) {
+                [[[UIAlertView alloc] initWithTitle:@"Auth Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+                return;
+            }
+            
+            INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
+            self.threadProvider = [namespace newThreadProvider];
+            self.threadProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessageDate" ascending:NO]];
+            self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:@"tagIDs = 'inbox'"];
+            self.threadProvider.itemRange = NSMakeRange(0, 100);
+            self.threadProvider.delegate = self;
+            
+            [self refresh];
+        }];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }

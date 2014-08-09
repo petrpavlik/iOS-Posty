@@ -74,4 +74,11 @@
     [self presentViewController:activityController animated:YES completion:nil];
 }
 
+#pragma mark -
+
++ (void)presentWithURL:(NSURL*)url fromViewController:(UIViewController*)controller {
+    
+    
+}
+
 @end
