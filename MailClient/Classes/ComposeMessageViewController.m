@@ -92,6 +92,17 @@
     if (self.messageToReplyTo) {
         
         self.subject = [NSString stringWithFormat:@"Re: %@", self.messageToReplyTo.subject];
+        
+        for (NSDictionary* from in self.messageToReplyTo.from) {
+            [self.contactsInputTextView addEmail:from[@"email"]];
+        }
+        
+        [self.bodyTextView becomeFirstResponder];
+        self.bodyTextView.selectedRange = NSMakeRange(0, 0);
+    }
+    else {
+        
+        [self.contactsInputTextView becomeFirstResponder];
     }
 }
 
@@ -99,7 +110,23 @@
 
 - (void)cancelSelected {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Save Draft" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Delete Message" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+
+    }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)sendSelected {
