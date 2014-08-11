@@ -72,7 +72,36 @@
         }
     }
     
-    
+    if (message.cc.count) {
+        
+        NSString* cc = @"Cc: ";
+        for (NSDictionary* ccDictionary in message.cc) {
+            
+            if ([ccDictionary[@"name"] length]) {
+                cc = [cc stringByAppendingString:ccDictionary[@"name"]];
+            }
+            else {
+                cc = [cc stringByAppendingString:ccDictionary[@"email"]];
+            }
+        }
+        self.ccLabel.text = cc;
+        
+        for (NSDictionary* ccDictionary in message.to) {
+            
+            NSString* urlString = [NSString stringWithFormat:@"mailto:%@", ccDictionary[@"email"]];
+            NSURL* url = [NSURL URLWithString:urlString];
+            
+            if ([ccDictionary[@"name"] length]) {
+                [self.ccLabel addLinkToURL:url withRange:[self.ccLabel.text rangeOfString:ccDictionary[@"name"]]];
+            }
+            else {
+                [self.ccLabel addLinkToURL:url withRange:[self.ccLabel.text rangeOfString:ccDictionary[@"email"]]];
+            }
+        }
+    }
+    else {
+        self.ccLabel.text = @"";
+    }
     
     self.dateLabel.text = [DateFormatter stringFromDate:message.date];
 }

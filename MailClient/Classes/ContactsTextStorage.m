@@ -50,6 +50,8 @@
 
 - (void)processEditing
 {
+    NSParameterAssert(self.prefix.length);
+    
     [super processEditing];
     
     NSString* string = self.string;
@@ -59,24 +61,20 @@
     [self removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, string.length)];
     [self addAttribute:NSForegroundColorAttributeName value:skin.textColor range:NSMakeRange(0, string.length)];
     
-    NSString* contacts = [string stringByReplacingOccurrencesOfString:@"To: " withString:@""];
+    NSString* contacts = [string stringByReplacingOccurrencesOfString:self.prefix withString:@""];
  
     NSArray* components = [contacts componentsSeparatedByString:@","];
     [components enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         NSString* component = [(NSString*)obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        NSLog(@"enumerated '%@'", component);
+        //NSLog(@"enumerated '%@'", component);
         
         if (!component.length) {
             return;
         }
         
         NSRange range = [string rangeOfString:component options:0];
-        
-        if (range.location < 4) {
-            NSParameterAssert(NO);
-        }
         
         [self addAttribute:NSForegroundColorAttributeName value:skin.tintColor range:range];
     }];

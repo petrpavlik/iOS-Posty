@@ -10,6 +10,8 @@
 
 @interface ContactsTextView : UITextView
 
+@property(nonatomic, strong) NSString* prefix;
+
 @property(nonatomic, readonly) NSArray* emails;
 
 - (void)addEmail:(NSString*)email;

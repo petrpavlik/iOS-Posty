@@ -26,6 +26,8 @@
 	 @"date": @"date",
 	 @"from": @"from",
 	 @"to": @"to",
+     @"cc": @"cc",
+     @"bcc": @"bcc",
      @"unread": @"unread",
 	 @"attachmentIDs":@"files"
 	}];

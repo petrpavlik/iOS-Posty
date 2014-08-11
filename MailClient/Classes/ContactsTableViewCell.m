@@ -51,10 +51,9 @@
     _textView.textColor = skin.textColor;
     [_textView setKeyboardType:UIKeyboardTypeEmailAddress];
     _textView.delegate = _textViewDelegate;
-    _textView.text = @"To: ";
     [self.contentView addSubview:_textView];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_textView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textView)]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-4-[_textView]-4-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textView)]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_textView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_textView)]];
 }
 

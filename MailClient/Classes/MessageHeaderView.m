@@ -49,6 +49,13 @@
     _toLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};
     [self addSubview:_toLabel];
     
+    _ccLabel = [TTTAttributedLabel new];
+    _ccLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _ccLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    _ccLabel.textColor = skin.textColor;
+    _ccLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};
+    [self addSubview:_ccLabel];
+    
     _dateLabel = [UILabel new];
     _dateLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _dateLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
@@ -61,15 +68,16 @@
     separator.backgroundColor = skin.cellSeparatorColor;
     [self addSubview:separator];
     
-    NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _toLabel, _dateLabel, separator);
+    NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _toLabel, _dateLabel, _ccLabel, separator);
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_subjectLabel]-|" options:0 metrics:nil views:bindings]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_fromLabel]-|" options:0 metrics:nil views:bindings]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_toLabel]-|" options:0 metrics:nil views:bindings]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_ccLabel]-|" options:0 metrics:nil views:bindings]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_dateLabel]-|" options:0 metrics:nil views:bindings]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[separator]|" options:0 metrics:nil views:bindings]];
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_fromLabel][_toLabel]-8-[separator(0.5)]-10-[_subjectLabel][_dateLabel]|" options:0 metrics:nil views:bindings]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_fromLabel][_toLabel][_ccLabel]-8-[separator(0.5)]-10-[_subjectLabel][_dateLabel]|" options:0 metrics:nil views:bindings]];
     
     
 }

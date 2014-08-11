@@ -14,6 +14,7 @@
 @property(nonatomic, strong) UILabel* subjectLabel;
 @property(nonatomic, strong) TTTAttributedLabel* fromLabel;
 @property(nonatomic, strong) TTTAttributedLabel* toLabel;
+@property(nonatomic, strong) TTTAttributedLabel* ccLabel;
 @property(nonatomic, strong) UILabel* dateLabel;
 
 @end

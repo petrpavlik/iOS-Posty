@@ -7,6 +7,7 @@
 //
 
 #import "ContactsTextViewDelegate.h"
+#import "ContactsTextView.h"
 
 @implementation ContactsTextViewDelegate
 
@@ -25,7 +26,11 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     
-    if (textView.text.length == 4) { //'To: '
+    ContactsTextView* contactsTextView = (ContactsTextView*)textView;
+    
+    NSParameterAssert(contactsTextView.prefix.length);
+    
+    if (textView.text.length == contactsTextView.prefix.length) { //'To: '
         return;
     }
     
@@ -47,13 +52,17 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
+    ContactsTextView* contactsTextView = (ContactsTextView*)textView;
+    
+    NSParameterAssert(contactsTextView.prefix.length);
+    
     if ([text isEqualToString:@"\n"]) {
         
         NSString* text = textView.text;
          
         NSString* lastComponent = [[text componentsSeparatedByString:@","] lastObject];
         
-        NSString* trimmedLastComponent = [lastComponent stringByReplacingOccurrencesOfString:@"To: " withString:@""];
+        NSString* trimmedLastComponent = [lastComponent stringByReplacingOccurrencesOfString:contactsTextView.prefix withString:@""];
         trimmedLastComponent = [trimmedLastComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
          
         if (trimmedLastComponent.length) {
@@ -87,7 +96,7 @@
         }
     }
     
-    if (range.location < 4) {
+    if (range.location < contactsTextView.prefix.length) {
         return NO;
     }
     
@@ -100,11 +109,15 @@
 
 - (void)textViewDidChangeSelection:(UITextView *)textView {
     
+    ContactsTextView* contactsTextView = (ContactsTextView*)textView;
+    
+    NSParameterAssert(contactsTextView.prefix.length);
+    
     NSRange range = textView.selectedRange;
     
-    if (range.location < 4) {
+    if (range.location < contactsTextView.prefix.length) {
         
-        NSInteger diff = 4 - range.location;
+        NSInteger diff = contactsTextView.prefix.length - range.location;
     
         textView.selectedRange = NSMakeRange(range.location+diff, range.length-diff);
     }

@@ -17,9 +17,12 @@
 @property(nonatomic, strong) UITableView* headerTableView;
 
 @property(nonatomic) NSString* subject;
-@property(nonatomic, readonly) ContactsTextView* contactsInputTextView;
+@property(nonatomic, readonly) ContactsTextView* toContactsTextView;
+@property(nonatomic, readonly) ContactsTextView* ccContactsTextView;
 
 @property(nonatomic) NSInteger heightOfContactsCell;
+
+@property(nonatomic, strong) INDraft* draft;
 
 @end
 
@@ -41,10 +44,11 @@
     _bodyTextView.textColor = [UIColor blackColor];
     _bodyTextView.backgroundColor = skin.cellBackgroundColor;
     _bodyTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    _bodyTextView.contentInset = UIEdgeInsetsMake(88, 0, 0, 0);
+    _bodyTextView.contentInset = UIEdgeInsetsMake(132, 0, 0, 0);
     [self.view addSubview:_bodyTextView];
     
-    _headerTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -88, self.view.bounds.size.width, 88) style:UITableViewStylePlain];
+    _headerTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -132, self.view.bounds.size.width, 132) style:UITableViewStylePlain];
+    _headerTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _headerTableView.delegate = self;
     _headerTableView.dataSource = self;
     _headerTableView.scrollEnabled = NO;
@@ -79,10 +83,15 @@
     
     _bodyTextView.attributedText = mutableSignarure;
     
-    /*signarute enumerateAttribute:NSFontAttributeName inRange:NSMakeRange(0, signarute.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
-        
-        
-    }*/
+    
+    INNamespace* namespace = [[INAPIManager shared] namespaces].firstObject;
+    
+    if (self.messageToReplyTo) {
+        _draft = [[INDraft alloc] initInNamespace:namespace inReplyTo:_messageToReplyTo.thread];
+    }
+    else {
+        _draft = [[INDraft alloc] initInNamespace:namespace];
+    }
 
 }
 
@@ -94,15 +103,21 @@
         self.subject = [NSString stringWithFormat:@"Re: %@", self.messageToReplyTo.subject];
         
         for (NSDictionary* from in self.messageToReplyTo.from) {
-            [self.contactsInputTextView addEmail:from[@"email"]];
+            [self.toContactsTextView addEmail:from[@"email"]];
         }
+        
+        for (NSDictionary* from in self.messageToReplyTo.cc) {
+            [self.ccContactsTextView addEmail:from[@"email"]];
+        }
+        
+        //self.messageToReplyTo.c
         
         [self.bodyTextView becomeFirstResponder];
         self.bodyTextView.selectedRange = NSMakeRange(0, 0);
     }
     else {
         
-        [self.contactsInputTextView becomeFirstResponder];
+        [self.toContactsTextView becomeFirstResponder];
     }
 }
 
@@ -113,6 +128,9 @@
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"Save Draft" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [self populateDraftWithContent];
+        [self.draft save];
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }]];
@@ -131,38 +149,9 @@
 
 - (void)sendSelected {
     
-    INNamespace* namespace = [[INAPIManager shared] namespaces].firstObject;
- 
-    INDraft * draft = nil;
+    [self populateDraftWithContent];
     
-    if (self.messageToReplyTo) {
-            draft = [[INDraft alloc] initInNamespace:namespace inReplyTo:_messageToReplyTo.thread];
-    }
-    else {
-        draft = [[INDraft alloc] initInNamespace:namespace];
-    }
-
-    [draft setSubject: self.subject];
-    
-    NSDictionary *documentAttributes = [NSDictionary dictionaryWithObjectsAndKeys:NSHTMLTextDocumentType, NSDocumentTypeDocumentAttribute, nil];
-    NSData *htmlData = [self.bodyTextView.attributedText dataFromRange:NSMakeRange(0, self.bodyTextView.attributedText.length) documentAttributes:documentAttributes error:nil];
-    
-    NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
-    
-    [draft setBody:htmlString];
-    
-    NSMutableArray* recepients = [NSMutableArray new];
-    for (NSString* email in self.contactsInputTextView.emails) {
-        [recepients addObject:@{@"email": email}];
-    }
-    
-    if (!recepients.count) {
-        return;
-    }
-    
-    [draft setTo:recepients];
-    
-    [draft send];
+    [_draft send];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -171,7 +160,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 2;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -189,6 +178,19 @@
     if (indexPath.row == 0) {
         
         ContactsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ContactsTableViewCell" forIndexPath:indexPath];
+        
+        cell.textView.prefix = @"To: ";
+        
+        //cell.contactsPicker.delegate = self;
+        //cell.contactsPicker.datasource = self;
+        
+        return cell;
+    }
+    else if (indexPath.row == 1) {
+        
+        ContactsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"ContactsTableViewCell" forIndexPath:indexPath];
+        
+        cell.textView.prefix = @"Cc: ";
         
         //cell.contactsPicker.delegate = self;
         //cell.contactsPicker.datasource = self;
@@ -210,23 +212,51 @@
 
 - (void)setSubject:(NSString *)subject {
     
-    InputTableViewCell* cell = (InputTableViewCell*)[self.headerTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    InputTableViewCell* cell = (InputTableViewCell*)[self.headerTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     
     cell.valueTextField.text = subject;
 }
 
 - (NSString*)subject {
     
-    InputTableViewCell* cell = (InputTableViewCell*)[self.headerTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    InputTableViewCell* cell = (InputTableViewCell*)[self.headerTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     
     return cell.valueTextField.text;
 }
 
-- (ContactsTextView*)contactsInputTextView {
+- (ContactsTextView*)toContactsTextView {
     
     ContactsTableViewCell* cell = (ContactsTableViewCell*)[self.headerTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     return cell.textView;
+}
+
+- (ContactsTextView*)ccContactsTextView {
+    
+    ContactsTableViewCell* cell = (ContactsTableViewCell*)[self.headerTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    
+    return cell.textView;
+}
+
+#pragma mark -
+
+- (void)populateDraftWithContent {
+    
+    [_draft setSubject: self.subject];
+    
+    NSDictionary *documentAttributes = [NSDictionary dictionaryWithObjectsAndKeys:NSHTMLTextDocumentType, NSDocumentTypeDocumentAttribute, nil];
+    NSData *htmlData = [self.bodyTextView.attributedText dataFromRange:NSMakeRange(0, self.bodyTextView.attributedText.length) documentAttributes:documentAttributes error:nil];
+    
+    NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+    
+    [_draft setBody:htmlString];
+    
+    NSMutableArray* recepients = [NSMutableArray new];
+    for (NSString* email in self.toContactsTextView.emails) {
+        [recepients addObject:@{@"email": email}];
+    }
+    
+    [_draft setTo:recepients];
 }
 
 

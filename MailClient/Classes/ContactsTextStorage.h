@@ -10,7 +10,6 @@
 
 @interface ContactsTextStorage : NSTextStorage
 
-@property(nonatomic, strong) UIColor* emailHighlightColor;
-@property(nonatomic, strong) UIColor* emailSeparatorColor;
+@property(nonatomic, strong) NSString* prefix;
 
 @end
