@@ -14,12 +14,18 @@
 #import "MessagesTableViewController.h"
 #import "ComposeMessageViewController.h"
 #import "NavigationController.h"
+#import "MessageViewController.h"
+#import "AppDelegate.h"
 
 #import "TagsTableViewController.h"
+
+#import "ThreadTableViewCell+Inbox.h"
 
 @interface ThreadsTableViewController () <INModelProviderDelegate, TagsViewControllerDelegate>
 
 @property(nonatomic, strong) INThreadProvider* threadProvider;
+
+@property(nonatomic) BOOL didProcessLaunchNotification;
 
 @end
 
@@ -97,6 +103,30 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMailNotification:) name:DidReceiveMailNotification object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (!self.didProcessLaunchNotification) {
+        
+        AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+        
+        if (appDelegate.launchNotificationUserInfo) {
+            
+            self.didProcessLaunchNotification = YES;
+            
+            //[[[UIAlertView alloc] initWithTitle:nil message:appDelegate.launchNotificationUserInfo.description delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+            
+            NSString* messageId = appDelegate.launchNotificationUserInfo[MessageIdKey];
+            
+            if (messageId.length) {
+                [self presentMessageWithId:messageId];
+            }
+        }
+    }
 }
 
 #pragma mark -
@@ -136,30 +166,7 @@
     
     INThread * thread = [[self.threadProvider items] objectAtIndex: indexPath.row];
     
-    NSString* from = nil;
-    
-    for (NSDictionary* participant in thread.participants) {
-        
-        if (!from.length) {
-            from = @"";
-        }
-        else {
-            from = [from stringByAppendingString:@", "];
-        }
-        
-        if (participant[@"name"]) {
-            from = [from stringByAppendingString:participant[@"name"]];
-        }
-        else {
-            from = [from stringByAppendingString:participant[@"email"]];
-        }
-    }
-    
-    cell.snippetLabel.text = [thread.snippet stringByReplacingOccurrencesOfString:thread.subject withString:@""];
-    cell.subjectLabel.text = thread.subject;
-    cell.unreadIndicatorView.hidden = ![thread hasTagWithID:INTagIDUnread];
-    cell.fromLabel.text = from;
-    cell.dateLabel.text = [DateFormatter stringFromDate:thread.lastMessageDate];
+    [cell setupWithThread:thread];
     
     [thread markAsSeen]; //TODO: check whether this fires a request more often that is acceptable
     
@@ -268,6 +275,27 @@
 - (void)applicationWillEnterForegroundNotification:(NSNotification*)notification {
     
     [self refresh];
+}
+
+- (void)didReceiveMailNotification:(NSNotification*)notification {
+    
+    NSString* messageId = notification.userInfo[MessageIdKey];
+    
+    NSParameterAssert(messageId.length);
+    
+    [self presentMessageWithId:messageId];
+}
+
+#pragma mark -
+
+- (void)presentMessageWithId:(NSString*)messageId {
+    
+    MessageViewController* controller = [[MessageViewController alloc] init];
+    controller.messageId = messageId;
+    
+    NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
+    
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end

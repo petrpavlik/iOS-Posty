@@ -9,9 +9,6 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 
-#import "MessageViewController.h"
-#import "NavigationController.h"
-
 @interface AppDelegate ()
 
 @end
@@ -31,6 +28,8 @@
     UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
     
     [application registerUserNotificationSettings:notificationSettings];
+    
+    self.launchNotificationUserInfo = [launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         
     return YES;
 }
@@ -82,7 +81,7 @@
     
     //FIXME: does not work
     
-    if (application.applicationState != UIApplicationStateActive) {
+    //if (application.applicationState != UIApplicationStateActive) {
         
         NSString* messageId = userInfo[@"messageId"];
         
@@ -93,13 +92,8 @@
             return;
         }
         
-        MessageViewController* controller = [[MessageViewController alloc] init];
-        controller.messageId = messageId;
-        
-        NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
-        
-        [self.window.rootViewController presentViewController:navigationController animated:YES completion:nil];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:DidReceiveMailNotification object:nil userInfo:@{MessageIdKey: messageId}];
+    //}
 }
 
 @end

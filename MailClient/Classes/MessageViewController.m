@@ -38,7 +38,6 @@
                                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-star"] style:UIBarButtonItemStylePlain target:self action:@selector(starSelected)],
                                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-reply-all"] style:UIBarButtonItemStylePlain target:self action:@selector(replyAllSelected)]];
     
-    NSParameterAssert(_message);
     
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;

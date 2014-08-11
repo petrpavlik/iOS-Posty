@@ -14,12 +14,14 @@
 		4B654EAB199642B6004C2D13 /* MessageHeaderView+InboxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B654EAA199642B6004C2D13 /* MessageHeaderView+InboxKit.m */; };
 		4B654EAE19964572004C2D13 /* UIWebView+InboxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B654EAD19964572004C2D13 /* UIWebView+InboxKit.m */; };
 		4B654EB119968D75004C2D13 /* ContactsTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B654EB019968D75004C2D13 /* ContactsTextView.m */; };
+		4B6A1CB11998ED3A000CFFF6 /* ThreadTableViewCell+Inbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A1CB01998ED3A000CFFF6 /* ThreadTableViewCell+Inbox.m */; };
 		4B7CBC53199408B100F7DF76 /* MessagePreviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CBC52199408B100F7DF76 /* MessagePreviewTableViewCell.m */; };
 		4B7CBC561994136200F7DF76 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B7CBC551994136200F7DF76 /* MessageTableViewCell.m */; };
 		4B81AB45198EFCD200D0FF3A /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B81AB44198EFCD200D0FF3A /* WebViewController.m */; };
 		4BA0A26119812326009C98F8 /* SimpleMailTemplate.html in Resources */ = {isa = PBXBuildFile; fileRef = 4BA0A25F19812326009C98F8 /* SimpleMailTemplate.html */; };
 		4BA1F5A2198D2DC2008352ED /* ThreadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1F5A1198D2DC2008352ED /* ThreadsViewController.m */; };
 		4BA1F5A5198D5DBB008352ED /* ContactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1F5A4198D5DBB008352ED /* ContactsTableViewCell.m */; };
+		4BAD464B19993E8400C4E50D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD464A19993E8400C4E50D /* Constants.m */; };
 		4BC92C8A197AF1D3000058F4 /* DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC92C89197AF1D3000058F4 /* DateFormatter.m */; };
 		4BCB6440197E95E60056EA79 /* ComposeMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB643F197E95E60056EA79 /* ComposeMessageViewController.m */; };
 		4BCB6444197EB83F0056EA79 /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB6443197EB83F0056EA79 /* InputTableViewCell.m */; };
@@ -70,6 +72,8 @@
 		4B654EAD19964572004C2D13 /* UIWebView+InboxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+InboxKit.m"; path = "Classes/UIWebView+InboxKit.m"; sourceTree = "<group>"; };
 		4B654EAF19968D75004C2D13 /* ContactsTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsTextView.h; path = Classes/ContactsTextView.h; sourceTree = "<group>"; };
 		4B654EB019968D75004C2D13 /* ContactsTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsTextView.m; path = Classes/ContactsTextView.m; sourceTree = "<group>"; };
+		4B6A1CAF1998ED3A000CFFF6 /* ThreadTableViewCell+Inbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ThreadTableViewCell+Inbox.h"; path = "Classes/ThreadTableViewCell+Inbox.h"; sourceTree = "<group>"; };
+		4B6A1CB01998ED3A000CFFF6 /* ThreadTableViewCell+Inbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "ThreadTableViewCell+Inbox.m"; path = "Classes/ThreadTableViewCell+Inbox.m"; sourceTree = "<group>"; };
 		4B7CBC51199408B100F7DF76 /* MessagePreviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagePreviewTableViewCell.h; path = Classes/MessagePreviewTableViewCell.h; sourceTree = "<group>"; };
 		4B7CBC52199408B100F7DF76 /* MessagePreviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagePreviewTableViewCell.m; path = Classes/MessagePreviewTableViewCell.m; sourceTree = "<group>"; };
 		4B7CBC541994136200F7DF76 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewCell.h; path = Classes/MessageTableViewCell.h; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 		4BA1F5A1198D2DC2008352ED /* ThreadsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThreadsViewController.m; path = Classes/ThreadsViewController.m; sourceTree = "<group>"; };
 		4BA1F5A3198D5DBB008352ED /* ContactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactsTableViewCell.h; path = Classes/ContactsTableViewCell.h; sourceTree = "<group>"; };
 		4BA1F5A4198D5DBB008352ED /* ContactsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContactsTableViewCell.m; path = Classes/ContactsTableViewCell.m; sourceTree = "<group>"; };
+		4BAD464919993E8400C4E50D /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Classes/Constants.h; sourceTree = "<group>"; };
+		4BAD464A19993E8400C4E50D /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = Classes/Constants.m; sourceTree = "<group>"; };
 		4BC92C88197AF1D3000058F4 /* DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateFormatter.h; path = Classes/DateFormatter.h; sourceTree = "<group>"; };
 		4BC92C89197AF1D3000058F4 /* DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateFormatter.m; path = Classes/DateFormatter.m; sourceTree = "<group>"; };
 		4BCB643E197E95E60056EA79 /* ComposeMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeMessageViewController.h; path = Classes/ComposeMessageViewController.h; sourceTree = "<group>"; };
@@ -141,6 +147,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B6A1CAE1998D5D4000CFFF6 /* Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				4B654EA9199642B6004C2D13 /* MessageHeaderView+InboxKit.h */,
+				4B654EAA199642B6004C2D13 /* MessageHeaderView+InboxKit.m */,
+				4B654EAC19964572004C2D13 /* UIWebView+InboxKit.h */,
+				4B654EAD19964572004C2D13 /* UIWebView+InboxKit.m */,
+				4B6A1CAF1998ED3A000CFFF6 /* ThreadTableViewCell+Inbox.h */,
+				4B6A1CB01998ED3A000CFFF6 /* ThreadTableViewCell+Inbox.m */,
+			);
+			name = Inbox;
+			sourceTree = "<group>";
+		};
 		4BA0A25D19812314009C98F8 /* HTML */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +217,8 @@
 				4BC92C88197AF1D3000058F4 /* DateFormatter.h */,
 				4BC92C89197AF1D3000058F4 /* DateFormatter.m */,
 				4B29FEA31982D65400800111 /* MailClient.pch */,
+				4BAD464919993E8400C4E50D /* Constants.h */,
+				4BAD464A19993E8400C4E50D /* Constants.m */,
 			);
 			path = MailClient;
 			sourceTree = "<group>";
@@ -258,6 +279,7 @@
 		4BFAF2CC197A791A0040580C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4B6A1CAE1998D5D4000CFFF6 /* Inbox */,
 				4BFAF2CD197A797D0040580C /* ThreadTableViewCell.h */,
 				4BFAF2CE197A797D0040580C /* ThreadTableViewCell.m */,
 				4BFAF2D0197A86EE0040580C /* UnreadIndicatorView.h */,
@@ -274,10 +296,6 @@
 				4B7CBC52199408B100F7DF76 /* MessagePreviewTableViewCell.m */,
 				4B7CBC541994136200F7DF76 /* MessageTableViewCell.h */,
 				4B7CBC551994136200F7DF76 /* MessageTableViewCell.m */,
-				4B654EA9199642B6004C2D13 /* MessageHeaderView+InboxKit.h */,
-				4B654EAA199642B6004C2D13 /* MessageHeaderView+InboxKit.m */,
-				4B654EAC19964572004C2D13 /* UIWebView+InboxKit.h */,
-				4B654EAD19964572004C2D13 /* UIWebView+InboxKit.m */,
 				4B654EAF19968D75004C2D13 /* ContactsTextView.h */,
 				4B654EB019968D75004C2D13 /* ContactsTextView.m */,
 			);
@@ -438,12 +456,14 @@
 				4BCB6440197E95E60056EA79 /* ComposeMessageViewController.m in Sources */,
 				4BDA8D8C198103170099D186 /* TagsTableViewController.m in Sources */,
 				4BFAF2A9197A6BF60040580C /* ViewController.m in Sources */,
+				4B6A1CB11998ED3A000CFFF6 /* ThreadTableViewCell+Inbox.m in Sources */,
 				4B2F507E197BC983000ADF06 /* MessageViewController.m in Sources */,
 				4BA1F5A5198D5DBB008352ED /* ContactsTableViewCell.m in Sources */,
 				4B29FEA21982B3C400800111 /* SkinProvider.m in Sources */,
 				4B654EB119968D75004C2D13 /* ContactsTextView.m in Sources */,
 				4B2F507B197BB796000ADF06 /* MessagesTableViewController.m in Sources */,
 				4BFAF2CF197A797D0040580C /* ThreadTableViewCell.m in Sources */,
+				4BAD464B19993E8400C4E50D /* Constants.m in Sources */,
 				4BFAF2C6197A6C700040580C /* ThreadsTableViewController.m in Sources */,
 				4BFAF2CA197A78180040580C /* NavigationController.m in Sources */,
 				4B654EAE19964572004C2D13 /* UIWebView+InboxKit.m in Sources */,
