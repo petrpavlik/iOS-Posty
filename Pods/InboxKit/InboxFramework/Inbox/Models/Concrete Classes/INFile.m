@@ -25,6 +25,11 @@
 	return mapping;
 }
 
++ (NSString *)resourceAPIName
+{
+    return @"files";
+}
+
 - (id)initWithImage:(UIImage*)image inNamespace:(INNamespace*)namespace
 {
 	return [self initWithFilename:@"image.jpg" mimetype:@"image/jpeg" andData:UIImageJPEGRepresentation(image, 0.85) andPreview: image inNamespace:namespace];

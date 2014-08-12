@@ -8,6 +8,13 @@
 
 #import "ThreadTableViewCell.h"
 
+@interface ThreadTableViewCell ()
+
+@property(nonatomic, strong) NSArray* unreadStateConstraints;
+@property(nonatomic, strong) NSArray* readStateConstraints;
+
+@end
+
 @implementation ThreadTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -67,13 +74,33 @@
     
     NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _dateLabel, _snippetLabel, _unreadIndicatorView);
     
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_unreadIndicatorView]-5-[_fromLabel]-[_dateLabel]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings]];
+    self.unreadStateConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[_unreadIndicatorView]-5-[_fromLabel]-[_dateLabel]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings];
+    
+    self.readStateConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[_fromLabel]-[_dateLabel]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings];
+    
+    [contentView addConstraints:_unreadStateConstraints];
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_subjectLabel]-|" options:0 metrics:nil views:bindings]];
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_snippetLabel(288)]" options:0 metrics:nil views:bindings]];
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[_fromLabel][_subjectLabel][_snippetLabel]-7-|" options:0 metrics:nil views:bindings]];
+}
+
+- (void)setReadState {
+    
+    [self.contentView removeConstraints:_unreadStateConstraints];
+    [self.contentView removeConstraints:_readStateConstraints];
+    
+    [self.contentView addConstraints:_readStateConstraints];
+}
+
+- (void)setUnreadState {
+    
+    [self.contentView removeConstraints:_unreadStateConstraints];
+    [self.contentView removeConstraints:_readStateConstraints];
+    
+    [self.contentView addConstraints:_unreadStateConstraints];
 }
 
 @end

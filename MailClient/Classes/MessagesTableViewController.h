@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class INThread;
+
 @interface MessagesTableViewController : UITableViewController
 
-@property(nonatomic, strong) NSString* threadId;
+@property(nonatomic, strong) INThread* thread;
 @property(nonatomic, strong) NSString* namespaceId;
 
 @end

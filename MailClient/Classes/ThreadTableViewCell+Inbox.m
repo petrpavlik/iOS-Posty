@@ -42,6 +42,17 @@
     self.unreadIndicatorView.hidden = ![thread hasTagWithID:INTagIDUnread];
     self.fromLabel.text = participants;
     self.dateLabel.text = [DateFormatter stringFromDate:thread.lastMessageDate];
+    
+    if ([thread hasTagWithID:INTagIDUnread]) {
+        
+        self.unreadIndicatorView.hidden = NO;
+        [self setUnreadState];
+    }
+    else {
+        
+        self.unreadIndicatorView.hidden = YES;
+        [self setReadState];
+    }
 }
 
 @end

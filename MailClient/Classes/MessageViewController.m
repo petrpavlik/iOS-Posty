@@ -139,6 +139,8 @@
     [self.headerView setupWithMessage:message];
     
     [self.webView setupWithMessage:message];
+    
+    [message markAsRead];
 }
 
 #pragma mark -

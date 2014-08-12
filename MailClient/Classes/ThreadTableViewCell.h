@@ -17,4 +17,7 @@
 @property(nonatomic, strong) UILabel* dateLabel;
 @property(nonatomic, strong) UnreadIndicatorView* unreadIndicatorView;
 
+- (void)setUnreadState;
+- (void)setReadState;
+
 @end

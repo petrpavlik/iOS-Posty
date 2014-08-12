@@ -173,11 +173,6 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 88;
-}
-
 #pragma mark -
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -185,7 +180,7 @@
     INThread * thread = [[self.threadProvider items] objectAtIndex: indexPath.row];
     
     MessagesTableViewController* controller = [[MessagesTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    controller.threadId = thread.ID;
+    controller.thread = thread;
     controller.namespaceId = thread.namespaceID;
     
     [self.navigationController pushViewController:controller animated:YES];

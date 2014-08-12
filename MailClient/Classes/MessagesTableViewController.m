@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSParameterAssert(self.threadId.length);
+    NSParameterAssert(self.thread);
     NSParameterAssert(self.namespaceId.length);
     
     SkinProvider* skin = [SkinProvider sharedInstance];
@@ -49,15 +49,12 @@
                                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-reply-all"] style:UIBarButtonItemStylePlain target:self action:@selector(replyAllSelected)]];
     
     
-    _messageProvider = [[INMessageProvider alloc] initForMessagesInThread:_threadId andNamespaceID:_namespaceId];
+    _messageProvider = [[INMessageProvider alloc] initForMessagesInThread:_thread.ID andNamespaceID:_namespaceId];
     _messageProvider.delegate = self;
     
+    [self.thread markAsRead];
+    
     [_messageProvider refresh];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -202,7 +199,9 @@
 
 - (void)deleteSelected {
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.thread archive];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)replyAllSelected {
