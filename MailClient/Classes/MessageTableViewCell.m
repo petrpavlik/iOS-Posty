@@ -54,7 +54,7 @@
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_contentWebView]|" options:0 metrics:nil views:bindings]];
     
     NSDictionary* heightMetrics = @{@"contentWebViewHeight": @44};
-    _heightDefiningConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_headerView]-[_contentWebView(contentWebViewHeight)]-|" options:0 metrics:heightMetrics views:bindings];
+    _heightDefiningConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_headerView]-[_contentWebView(contentWebViewHeight@999)]-|" options:0 metrics:heightMetrics views:bindings];
     
     [contentView addConstraints:_heightDefiningConstraints];
     
@@ -71,7 +71,7 @@
     NSDictionary* bindings = NSDictionaryOfVariableBindings(_headerView, _contentWebView);
     
     NSDictionary* heightMetrics = @{@"contentWebViewHeight": @(requiredHeight)};
-    _heightDefiningConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_headerView]-[_contentWebView(contentWebViewHeight)]-|" options:0 metrics:heightMetrics views:bindings];
+    _heightDefiningConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_headerView]-[_contentWebView(contentWebViewHeight@999)]-|" options:0 metrics:heightMetrics views:bindings];
     
     [self.contentView addConstraints:_heightDefiningConstraints];
     

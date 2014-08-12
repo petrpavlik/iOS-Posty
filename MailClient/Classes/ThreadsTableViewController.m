@@ -110,6 +110,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self.tableView reloadData]; //fixes autosized cell bug
+    
     if (!self.didProcessLaunchNotification) {
         
         AppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
