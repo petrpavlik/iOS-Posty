@@ -33,19 +33,7 @@
         [self loadHTMLString:content baseURL:nil];
     }
     
-    for (INFile* file in message.attachments) {
-        
-        [file reload:^(BOOL success, NSError *error) {
-           
-            NSLog(@"%@", file);
-            
-            [file getDataWithCallback:^(NSError *error, NSData *data) {
-               
-                UIImage* image = [UIImage imageWithData:data];
-                NSLog(@"%@", image);
-            }];
-        }];
-    }
+    
 }
 
 @end

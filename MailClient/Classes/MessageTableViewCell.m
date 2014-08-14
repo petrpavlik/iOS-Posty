@@ -11,6 +11,7 @@
 @interface MessageTableViewCell () <UIWebViewDelegate>
 
 @property(nonatomic, strong) NSArray* heightDefiningConstraints;
+@property(nonatomic, strong) UIView* attachmentsWrapperView;
 
 @end
 
@@ -48,13 +49,19 @@
     _contentWebView.scrollView.scrollEnabled = NO;
     [contentView addSubview:_contentWebView];
     
-    NSDictionary* bindings = NSDictionaryOfVariableBindings(_headerView, _contentWebView);
+    _attachmentsWrapperView = [UIView new];
+    _attachmentsWrapperView.translatesAutoresizingMaskIntoConstraints = NO;
+    [contentView addSubview:_attachmentsWrapperView];
+    
+    NSDictionary* bindings = NSDictionaryOfVariableBindings(_headerView, _contentWebView, _attachmentsWrapperView);
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_headerView]|" options:0 metrics:nil views:bindings]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_contentWebView]|" options:0 metrics:nil views:bindings]];
     
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_attachmentsWrapperView]|" options:0 metrics:nil views:bindings]];
+    
     NSDictionary* heightMetrics = @{@"contentWebViewHeight": @44};
-    _heightDefiningConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_headerView]-[_contentWebView(contentWebViewHeight@999)]-|" options:0 metrics:heightMetrics views:bindings];
+    _heightDefiningConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_headerView]-[_contentWebView(contentWebViewHeight@999)]-[_attachmentsWrapperView]|" options:0 metrics:heightMetrics views:bindings];
     
     [contentView addConstraints:_heightDefiningConstraints];
     
@@ -68,10 +75,10 @@
     
     [self.contentView removeConstraints:_heightDefiningConstraints];
     
-    NSDictionary* bindings = NSDictionaryOfVariableBindings(_headerView, _contentWebView);
+    NSDictionary* bindings = NSDictionaryOfVariableBindings(_headerView, _contentWebView, _attachmentsWrapperView);
     
     NSDictionary* heightMetrics = @{@"contentWebViewHeight": @(requiredHeight)};
-    _heightDefiningConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_headerView]-[_contentWebView(contentWebViewHeight@999)]-|" options:0 metrics:heightMetrics views:bindings];
+    _heightDefiningConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_headerView]-[_contentWebView(contentWebViewHeight@999)]-[_attachmentsWrapperView]|" options:0 metrics:heightMetrics views:bindings];
     
     [self.contentView addConstraints:_heightDefiningConstraints];
     
@@ -87,6 +94,20 @@
     [self.delegate messageCell:self didSelectURL:request.URL];
     
     return NO;
+}
+
+- (void)setAttachmentViews:(NSArray*)attachmentViews {
+    
+    for (UIView* attachmentView in self.attachmentsWrapperView.subviews) {
+        [attachmentView removeFromSuperview];
+    }
+    
+    UIView* attachmentView = attachmentViews[0];
+    
+    [self.attachmentsWrapperView addSubview:attachmentView];
+    
+    [self.attachmentsWrapperView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[attachmentView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(attachmentView)]];
+    
 }
 
 @end

@@ -12,6 +12,7 @@
 @class INUploadFileTask;
 
 typedef void (^ AttachmentDownloadBlock)(NSError * error, NSData * data);
+typedef void (^ AttachmentDownloadProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead);
 
 /** INAttachment represents a single attachment on an email message. Attachments
 may be created, uploaded and attached to drafts, or fetched from the server for 
@@ -74,5 +75,14 @@ to call -upload.
  or an error has occurred.
 */
 - (void)getDataWithCallback:(AttachmentDownloadBlock)callback;
+
+/**
+ Asynchronously fetches the attachment data from the server.
+ 
+ @param callback The callback to invoke when attachment data has been successfully downloaded,
+ or an error has occurred.
+ */
+- (void)getDataWithCallback:(AttachmentDownloadBlock)callback progress:(AttachmentDownloadProgressBlock)progressCallback;
+
 
 @end

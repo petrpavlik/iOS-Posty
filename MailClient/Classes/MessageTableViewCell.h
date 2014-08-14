@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MessageHeaderView.h"
+#import "AttachmentView.h"
 
 @class MessageTableViewCell;
 
@@ -24,5 +25,7 @@
 @property(nonatomic, strong) MessageHeaderView* headerView;
 @property(nonatomic, strong) UIWebView* contentWebView;
 @property(nonatomic, strong) id <MessageTableViewCellDelegate> delegate;
+
+- (void)setAttachmentViews:(NSArray*)attachmentViews;
 
 @end

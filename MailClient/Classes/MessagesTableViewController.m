@@ -85,6 +85,30 @@
         
         [cell.contentWebView setupWithMessage:message];
         
+        for (INFile* file in message.attachments) {
+            
+            AttachmentView* attachmentView = [[AttachmentView alloc] init];
+            attachmentView.translatesAutoresizingMaskIntoConstraints = NO;
+            
+            attachmentView.name = @"Blah";
+            
+            [cell setAttachmentViews:@[attachmentView]];
+            
+            /*[file reload:^(BOOL success, NSError *error) {
+                
+                NSLog(@"%@", file);
+                
+                [file getDataWithCallback:^(NSError *error, NSData *data) {
+                    
+                    UIImage* image = [UIImage imageWithData:data];
+                    NSLog(@"%@", image);
+                } progress:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+                    
+                    //NSLog(@"progress %f%%", ((double)totalBytesRead/totalBytesExpectedToRead));
+                }];
+            }];*/
+        }
+        
         return cell;
     }
     else {

@@ -95,4 +95,22 @@
     [op setResponseSerializer: [AFHTTPResponseSerializer serializer]];
 }
 
+- (void)getDataWithCallback:(AttachmentDownloadBlock)callback progress:(AttachmentDownloadProgressBlock)progressCallback
+{
+    NSString * path = [NSString stringWithFormat:@"/n/%@/files/%@/download", self.namespaceID, self.ID];
+    AFHTTPRequestOperation * op = [[INAPIManager shared].AF GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        callback(nil, responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callback(error, nil);
+    }];
+    [op setResponseSerializer: [AFHTTPResponseSerializer serializer]];
+    
+    [op setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        
+        if (progressCallback) {
+            progressCallback(bytesRead, totalBytesRead, totalBytesExpectedToRead);
+        }
+    }];
+}
+
 @end
