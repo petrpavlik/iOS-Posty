@@ -20,6 +20,8 @@
 #import "MessageHeaderView+InboxKit.h"
 #import "UIWebView+InboxKit.h"
 
+#import "QuickReplyHeaderView.h"
+
 @interface MessagesTableViewController () <INModelProviderDelegate, MessageTableViewCellDelegate>
 
 @property(nonatomic) BOOL heightOfLatestMessageAlreadyDetected;
@@ -48,6 +50,8 @@
                                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-star"] style:UIBarButtonItemStylePlain target:self action:@selector(starSelected)],
                                                 [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-reply-all"] style:UIBarButtonItemStylePlain target:self action:@selector(replyAllSelected)]];
     
+    QuickReplyHeaderView* headerView = [[QuickReplyHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    self.tableView.tableHeaderView = headerView;
     
     _messageProvider = [[INMessageProvider alloc] initForMessagesInThread:_thread.ID andNamespaceID:_namespaceId];
     _messageProvider.delegate = self;
