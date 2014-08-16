@@ -18,10 +18,23 @@
 	<string>0.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>in-63t325t19qhgakea7kcykq3yo</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>0.1</string>
 	<key>INAPIPath</key>
 	<string>http://posty.apiary-proxy.com</string>
+	<key>INAppID</key>
+	<string>63t325t19qhgakea7kcykq3yo</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>

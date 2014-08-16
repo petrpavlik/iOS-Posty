@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <Inbox.h>
 
 @interface AppDelegate ()
 
@@ -58,6 +59,13 @@
 
 #pragma mark -
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [[INAPIManager shared] handleURL: url];
+}
+
+#pragma mark -
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     // Store the deviceToken in the current installation and save it to Parse.
@@ -78,8 +86,6 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    //FIXME: does not work
     
     //if (application.applicationState != UIApplicationStateActive) {
         

@@ -16,9 +16,19 @@
     
     NSString* participants = nil;
     
+    NSArray* linkedEmailAddresses = [[INAPIManager shared] namespaceEmailAddresses];
+    
     for (NSDictionary* participant in thread.participants) {
         
-        if ([participant[@"email"] isEqualToString:@"inboxapptestios@gmail.com"]) {
+        BOOL isMe = NO;
+        for (NSString* linkedEmail in linkedEmailAddresses) {
+            
+            if ([participant[@"email"] isEqualToString:linkedEmail]) {
+                isMe = YES;
+            }
+        }
+        
+        if (isMe) {
             continue;
         }
         

@@ -47,6 +47,9 @@
     _contentWebView.dataDetectorTypes = UIDataDetectorTypeAll;
     _contentWebView.delegate = self;
     _contentWebView.scrollView.scrollEnabled = NO;
+    //_contentWebView.scrollView.minimumZoomScale = 0.1;
+    //_contentWebView.scrollView.maximumZoomScale = 10;
+    //_contentWebView.scalesPageToFit = YES;
     [contentView addSubview:_contentWebView];
     
     _attachmentsWrapperView = [UIView new];
@@ -71,7 +74,30 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     
-    CGFloat requiredHeight = webView.scrollView.contentSize.height;
+    CGSize contentSize = webView.scrollView.contentSize;
+    
+    if (contentSize.width > 320) {
+        
+        webView.scalesPageToFit = YES;
+        
+        /*if (!webView.scalesPageToFit) {
+            
+            webView.scalesPageToFit = YES;
+            [webView reload];
+            
+            return;
+        }*/
+        CGFloat scale = 320 / contentSize.width;
+        
+        contentSize.width *= scale;
+        contentSize.height *= scale;
+        
+        //[webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document. body.style.zoom = %f;", scale]];
+        
+        
+    }
+    
+    CGFloat requiredHeight = contentSize.height;
     
     [self.contentView removeConstraints:_heightDefiningConstraints];
     

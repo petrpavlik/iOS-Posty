@@ -34,7 +34,7 @@
     
     UIBarButtonItem* shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-upload"] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarksSelected)];
     
-    UIBarButtonItem* refreshButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-refresh"] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarksSelected)];
+    UIBarButtonItem* refreshButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-refresh"] style:UIBarButtonItemStylePlain target:self action:@selector(reloadSelected)];
     
     self.navigationItem.rightBarButtonItems = @[shareButton, refreshButton];
     

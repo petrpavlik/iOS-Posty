@@ -21,11 +21,17 @@
 
 #import "ThreadTableViewCell+Inbox.h"
 
-@interface ThreadsTableViewController () <INModelProviderDelegate, TagsViewControllerDelegate>
+#import "MailSummaryView.h"
+#import "SpamController.h"
+
+@interface ThreadsTableViewController () <INModelProviderDelegate, TagsViewControllerDelegate, SpanControllerDelegate>
 
 @property(nonatomic, strong) INThreadProvider* threadProvider;
 
 @property(nonatomic) BOOL didProcessLaunchNotification;
+
+@property(nonatomic, strong) MailSummaryView* summaryView;
+@property(nonatomic, strong) SpamController* spamController;
 
 @end
 
@@ -71,36 +77,21 @@
     
     [self.tableView registerClass:[ThreadTableViewCell class] forCellReuseIdentifier:@"ThreadTableViewCell"];
     
-    if ([INAPIManager shared]) {
-        
-        INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
-        self.threadProvider = [namespace newThreadProvider];
-        self.threadProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessageDate" ascending:NO]];
-        self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:@"tagIDs = 'inbox'"];
-        self.threadProvider.itemRange = NSMakeRange(0, 100);
-        self.threadProvider.delegate = self;
-        
-        [self refresh];
-    }
-    else {
-        
-        [[INAPIManager shared] authenticateWithAuthToken:@"no-open-source-auth" andCompletionBlock:^(BOOL success, NSError *error) {
-            
-            if (error) {
-                [[[UIAlertView alloc] initWithTitle:@"Auth Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
-                return;
-            }
-            
-            INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
-            self.threadProvider = [namespace newThreadProvider];
-            self.threadProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessageDate" ascending:NO]];
-            self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:@"tagIDs = 'inbox'"];
-            self.threadProvider.itemRange = NSMakeRange(0, 100);
-            self.threadProvider.delegate = self;
-            
-            [self refresh];
-        }];
-    }
+    MailSummaryView* summaryView = [[MailSummaryView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    self.tableView.tableHeaderView = summaryView;
+    _summaryView = summaryView;
+    
+    _spamController = [SpamController new];
+    _spamController.delegate = self;
+    
+    INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
+    self.threadProvider = [namespace newThreadProvider];
+    self.threadProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessageDate" ascending:NO]];
+    self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:@"tagIDs = 'inbox'"];
+    self.threadProvider.itemRange = NSMakeRange(0, 100);
+    self.threadProvider.delegate = self;
+    
+    [self refresh];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     
@@ -142,6 +133,7 @@
     [self.refreshControl beginRefreshing];
     
     [self.threadProvider refresh];
+    [self.spamController reload];
     
     [self.threadProvider countUnreadItemsWithCallback:^(long count) {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:count];
@@ -293,6 +285,13 @@
     NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
     
     [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+#pragma mark -
+
+- (void)spamController:(SpamController *)controller didDetectSpamStatus:(BOOL)spamReceived {
+    
+    self.summaryView.gotSpamToday = spamReceived;
 }
 
 @end

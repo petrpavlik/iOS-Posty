@@ -11,6 +11,8 @@
 #import "ThreadsTableViewController.h"
 #import "NavigationController.h"
 
+#import <Inbox.h>
+
 @import CloudKit;
 
 @interface LoginViewController ()
@@ -27,17 +29,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    if (![PFUser currentUser]) {
+    /*if (![PFUser currentUser]) {
         [self performLogin];
-    }
+    }*/
+    
+    NSLog(@"%d", [INAPIManager shared].isAuthenticated);
+    
+    UIButton* testLoginButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    testLoginButton.frame = CGRectMake(20, 20, 100, 44);
+    [testLoginButton setTitle:@"Test Login" forState:UIControlStateNormal];
+    [testLoginButton addTarget:self action:@selector(testLoginButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:testLoginButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if ([PFUser currentUser]) {
+    /*if ([PFUser currentUser]) {
         [self displayThreadsAnimated:NO];
-    }
+    }*/
 }
 
 - (void)loadView {
@@ -161,6 +171,24 @@
     
     [self presentViewController:navController animated:animated completion:nil];
 
+}
+
+#pragma mark -
+
+- (void)testLoginButtonSelected {
+    
+    NSString * email = @"pavlipe7@gmail.com";
+    [[INAPIManager shared] authenticateWithEmail:email andCompletionBlock:^(BOOL success, NSError *error) {
+        
+        if (error) {
+            
+            [[[UIAlertView alloc] initWithTitle:@"Oh Fuck!" message:error.description delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        }
+        else {
+            
+            [[[UIAlertView alloc] initWithTitle:@"Such win!" message:nil delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+        }
+    }];
 }
 
 @end

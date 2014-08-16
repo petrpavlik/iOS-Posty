@@ -31,6 +31,8 @@
     
     SkinProvider* skin = [SkinProvider sharedInstance];
     
+    self.layoutMargins = UIEdgeInsetsZero;
+    
     self.backgroundColor = skin.cellBackgroundColor;
     
     UIView* selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
