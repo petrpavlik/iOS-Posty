@@ -248,6 +248,12 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
+- (void)settingsSelected {
+    
+    [[INAPIManager shared] unauthenticate];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark -
 
 - (void)tagsViewController:(TagsTableViewController *)controller didSelectTag:(INTag *)tag {
