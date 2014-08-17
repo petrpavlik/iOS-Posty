@@ -185,9 +185,10 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewRowAction* deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+    UITableViewRowAction* deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Archive" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
         
-        //INThread * thread = [[self.threadProvider items] objectAtIndex: indexPath.row];
+        INThread * thread = [[self.threadProvider items] objectAtIndex: indexPath.row];
+        [thread archive];
     }];
     
     UITableViewRowAction* flagAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Flag" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
