@@ -80,6 +80,7 @@
     [mutableSignarure removeAttribute:NSFontAttributeName range:NSMakeRange(0, signarute.length)];
     [mutableSignarure removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, signarute.length)];
     [mutableSignarure removeAttribute:NSParagraphStyleAttributeName range:NSMakeRange(0, signarute.length)];
+    [mutableSignarure addAttribute:NSFontAttributeName value:self.bodyTextView.font range:NSMakeRange(0, mutableSignarure.length)];
     
     _bodyTextView.attributedText = mutableSignarure;
     
@@ -244,10 +245,18 @@
     
     [_draft setSubject: self.subject];
     
+    NSMutableAttributedString* mutableAttributedString = [self.bodyTextView.attributedText mutableCopy];
+    
     NSDictionary *documentAttributes = [NSDictionary dictionaryWithObjectsAndKeys:NSHTMLTextDocumentType, NSDocumentTypeDocumentAttribute, nil];
-    NSData *htmlData = [self.bodyTextView.attributedText dataFromRange:NSMakeRange(0, self.bodyTextView.attributedText.length) documentAttributes:documentAttributes error:nil];
+    NSData *htmlData = [mutableAttributedString dataFromRange:NSMakeRange(0, mutableAttributedString.length) documentAttributes:documentAttributes error:nil];
     
     NSString *htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+    
+    //remove css
+    NSInteger cssStart = [htmlString rangeOfString:@"<style type=\"text/css\">"].location;
+    NSInteger cssEnd = [htmlString rangeOfString:@"</style>"].location + [htmlString rangeOfString:@"</style>"].length;
+    
+    htmlString = [htmlString stringByReplacingCharactersInRange:NSMakeRange(cssStart, cssEnd-cssStart) withString:@""];
     
     [_draft setBody:htmlString];
     

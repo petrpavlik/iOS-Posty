@@ -129,9 +129,9 @@
 
 - (void)refresh {
     
-    if (self.refreshControl.isRefreshing) {
+    /*if (self.refreshControl.isRefreshing) {
         return;
-    }
+    }*/
     
     [self.refreshControl beginRefreshing];
     

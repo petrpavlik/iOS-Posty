@@ -44,14 +44,14 @@
     _subjectLabel = [UILabel new];
     _subjectLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _subjectLabel.numberOfLines = 1;
-    _subjectLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    _subjectLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
     _subjectLabel.textColor = skin.headerTextColor;
     [contentView addSubview:_subjectLabel];
     
     _fromLabel = [UILabel new];
     _fromLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _fromLabel.numberOfLines = 1;
-    _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _fromLabel.textColor = skin.headerTextColor;
     [contentView addSubview:_fromLabel];
     
@@ -86,7 +86,7 @@
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_snippetLabel(288)]" options:0 metrics:nil views:bindings]];
     
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[_fromLabel][_subjectLabel][_snippetLabel]-7-|" options:0 metrics:nil views:bindings]];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[_fromLabel]-2-[_subjectLabel]-3-[_snippetLabel]-7-|" options:0 metrics:nil views:bindings]];
 }
 
 - (void)setReadState {

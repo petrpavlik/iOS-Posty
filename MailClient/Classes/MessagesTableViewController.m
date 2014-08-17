@@ -54,6 +54,7 @@
     self.tableView.tableHeaderView = headerView;
     
     _messageProvider = [[INMessageProvider alloc] initForMessagesInThread:_thread.ID andNamespaceID:_namespaceId];
+    _messageProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
     _messageProvider.delegate = self;
     
     [self.thread markAsRead];

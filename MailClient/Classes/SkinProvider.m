@@ -23,7 +23,7 @@
 }
 
 - (UIColor*)tintColor {
-    return [UIColor colorWithRed:0.329 green:0.604 blue:0.988 alpha:1];
+    return [UIColor colorWithRed:0.263 green:0.671 blue:0.882 alpha:1];
 }
 
 - (UIColor*)cellBackgroundColor {
@@ -31,7 +31,7 @@
 }
 
 - (UIColor*)cellSelectedBackgroundColor {
-    return [UIColor colorWithRed:0.004 green:0.361 blue:0.863 alpha:1];
+    return [UIColor colorWithRed:0.969 green:0.973 blue:0.976 alpha:1];
 }
 
 - (UIColor*)cellSeparatorColor {
@@ -44,7 +44,7 @@
 }
 
 - (UIColor*)navigationBarTitleTextColor {
-    return [UIColor colorWithRed:71/255.0 green:82/255.0 blue:93/255.0 alpha:1];
+    return [UIColor colorWithRed:0.322 green:0.373 blue:0.404 alpha:1];
 }
 
 - (UIColor*)headerTextColor {
@@ -52,7 +52,7 @@
 }
 
 - (UIColor*)textColor {
-    return [UIColor colorWithRed:103/255.0 green:114/255.0 blue:119/255.0 alpha:1];
+    return [UIColor colorWithRed:0.584 green:0.631 blue:0.655 alpha:1];
 }
 
 @end
