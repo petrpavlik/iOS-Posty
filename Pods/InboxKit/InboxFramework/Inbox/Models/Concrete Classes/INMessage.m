@@ -28,6 +28,7 @@
 	 @"to": @"to",
      @"cc": @"cc",
      @"bcc": @"bcc",
+     @"snippet": @"snippet",
      @"unread": @"unread",
 	 @"attachmentIDs":@"files"
 	}];

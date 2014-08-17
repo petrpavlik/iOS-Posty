@@ -85,6 +85,9 @@
     _spamController.delegate = self;
     
     INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
+    
+   // NSParameterAssert(namespace);
+    
     self.threadProvider = [namespace newThreadProvider];
     self.threadProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessageDate" ascending:NO]];
     self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:@"tagIDs = 'inbox'"];

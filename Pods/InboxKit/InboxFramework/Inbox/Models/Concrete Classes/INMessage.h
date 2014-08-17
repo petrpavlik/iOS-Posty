@@ -37,6 +37,7 @@ the documentation for INThread.
 @property (nonatomic, strong) NSArray * to;
 @property (nonatomic, strong) NSArray * cc;
 @property (nonatomic, strong) NSArray * bcc;
+@property (nonatomic, strong) NSString * snippet;
 @property (nonatomic, assign) BOOL unread;
 
 /*

@@ -125,7 +125,7 @@
         
         MessagePreviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessagePreviewTableViewCell" forIndexPath:indexPath];
         
-        cell.snippetLabel.text = message.body;
+        cell.snippetLabel.text = message.snippet;
         
         [cell.headerView setupWithMessage:message];
         
