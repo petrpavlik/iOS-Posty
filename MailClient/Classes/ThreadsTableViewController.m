@@ -11,7 +11,7 @@
 
 #import "ThreadTableViewCell.h"
 #import "DateFormatter.h"
-#import "MessagesTableViewController.h"
+#import "MessagesViewController.h"
 #import "ComposeMessageViewController.h"
 #import "NavigationController.h"
 #import "MessageViewController.h"
@@ -176,7 +176,7 @@
     
     INThread * thread = [[self.threadProvider items] objectAtIndex: indexPath.row];
     
-    MessagesTableViewController* controller = [[MessagesTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    MessagesViewController* controller = [[MessagesViewController alloc] init];
     controller.thread = thread;
     controller.namespaceId = thread.namespaceID;
     

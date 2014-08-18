@@ -7,12 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Inbox.h>
 
-@class INThread;
+@class MessagesTableViewController;
 
-@interface MessagesTableViewController : UITableViewController
+@protocol MessagesTableViewControllerDelegate <NSObject>
 
-@property(nonatomic, strong) INThread* thread;
-@property(nonatomic, strong) NSString* namespaceId;
+- (void)messagesTableViewControllerDidCompleteDataFetch:(MessagesTableViewController*)controller;
+- (void)messagesTableViewController:(MessagesTableViewController*)controller dataFetchDidFailWithError:(NSError*)error;
+
+@end
+
+@interface MessagesTableViewController : UITableViewController <INModelProviderDelegate>
+
+@property(nonatomic, strong) INMessageProvider* messageProvider;
+
+@property(nonatomic, strong) id <MessagesTableViewControllerDelegate> delegate;
 
 @end

@@ -32,7 +32,7 @@
 	<key>CFBundleVersion</key>
 	<string>0.1</string>
 	<key>INAPIPath</key>
-	<string>https://api.inboxapp.com/</string>
+	<string>http://posty.apiary-proxy.com</string>
 	<key>INAppID</key>
 	<string>63t325t19qhgakea7kcykq3yo</string>
 	<key>LSRequiresIPhoneOS</key>

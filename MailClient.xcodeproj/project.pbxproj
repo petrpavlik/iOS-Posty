@@ -25,6 +25,7 @@
 		4BA1F5A5198D5DBB008352ED /* ContactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA1F5A4198D5DBB008352ED /* ContactsTableViewCell.m */; };
 		4BAD464B19993E8400C4E50D /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD464A19993E8400C4E50D /* Constants.m */; };
 		4BC92C8A197AF1D3000058F4 /* DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC92C89197AF1D3000058F4 /* DateFormatter.m */; };
+		4BC97A2519A13EAA000079C3 /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BC97A2419A13EAA000079C3 /* MessagesViewController.m */; };
 		4BCB6440197E95E60056EA79 /* ComposeMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB643F197E95E60056EA79 /* ComposeMessageViewController.m */; };
 		4BCB6444197EB83F0056EA79 /* InputTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB6443197EB83F0056EA79 /* InputTableViewCell.m */; };
 		4BDA8D8C198103170099D186 /* TagsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BDA8D8B198103170099D186 /* TagsTableViewController.m */; };
@@ -98,6 +99,8 @@
 		4BAD464A19993E8400C4E50D /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = Classes/Constants.m; sourceTree = "<group>"; };
 		4BC92C88197AF1D3000058F4 /* DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateFormatter.h; path = Classes/DateFormatter.h; sourceTree = "<group>"; };
 		4BC92C89197AF1D3000058F4 /* DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateFormatter.m; path = Classes/DateFormatter.m; sourceTree = "<group>"; };
+		4BC97A2319A13EAA000079C3 /* MessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagesViewController.h; path = Classes/MessagesViewController.h; sourceTree = "<group>"; };
+		4BC97A2419A13EAA000079C3 /* MessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagesViewController.m; path = Classes/MessagesViewController.m; sourceTree = "<group>"; };
 		4BCB643E197E95E60056EA79 /* ComposeMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComposeMessageViewController.h; path = Classes/ComposeMessageViewController.h; sourceTree = "<group>"; };
 		4BCB643F197E95E60056EA79 /* ComposeMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComposeMessageViewController.m; path = Classes/ComposeMessageViewController.m; sourceTree = "<group>"; };
 		4BCB6442197EB83F0056EA79 /* InputTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputTableViewCell.h; path = Classes/InputTableViewCell.h; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 				4B801389199CCCDC0011EB31 /* AddAccountViewController.m */,
 				4BE36288199FA3A000217E09 /* SpamController.h */,
 				4BE36289199FA3A000217E09 /* SpamController.m */,
+				4BC97A2319A13EAA000079C3 /* MessagesViewController.h */,
+				4BC97A2419A13EAA000079C3 /* MessagesViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -483,6 +488,7 @@
 				4BFAF2A9197A6BF60040580C /* ViewController.m in Sources */,
 				4B6A1CB11998ED3A000CFFF6 /* ThreadTableViewCell+Inbox.m in Sources */,
 				4B2F507E197BC983000ADF06 /* MessageViewController.m in Sources */,
+				4BC97A2519A13EAA000079C3 /* MessagesViewController.m in Sources */,
 				4BA1F5A5198D5DBB008352ED /* ContactsTableViewCell.m in Sources */,
 				4B29FEA21982B3C400800111 /* SkinProvider.m in Sources */,
 				4B654EB119968D75004C2D13 /* ContactsTextView.m in Sources */,

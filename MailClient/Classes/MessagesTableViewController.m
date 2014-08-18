@@ -22,10 +22,9 @@
 
 #import "QuickReplyHeaderView.h"
 
-@interface MessagesTableViewController () <INModelProviderDelegate, MessageTableViewCellDelegate>
+@interface MessagesTableViewController () <MessageTableViewCellDelegate>
 
 @property(nonatomic) BOOL heightOfLatestMessageAlreadyDetected;
-@property(nonatomic, strong) INMessageProvider* messageProvider;
 
 @end
 
@@ -33,9 +32,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSParameterAssert(self.thread);
-    NSParameterAssert(self.namespaceId.length);
     
     SkinProvider* skin = [SkinProvider sharedInstance];
     
@@ -45,21 +41,9 @@
     [self.tableView registerClass:[MessagePreviewTableViewCell class] forCellReuseIdentifier:@"MessagePreviewTableViewCell"];
     [self.tableView registerClass:[MessageTableViewCell class] forCellReuseIdentifier:@"MessageTableViewCell"];
     
-    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-menu"] style:UIBarButtonItemStylePlain target:self action:@selector(moreSelected)],
-                                                [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-trash"] style:UIBarButtonItemStylePlain target:self action:@selector(deleteSelected)],
-                                                [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-star"] style:UIBarButtonItemStylePlain target:self action:@selector(starSelected)],
-                                                [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-reply-all"] style:UIBarButtonItemStylePlain target:self action:@selector(replyAllSelected)]];
-    
     QuickReplyHeaderView* headerView = [[QuickReplyHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     self.tableView.tableHeaderView = headerView;
     
-    _messageProvider = [[INMessageProvider alloc] initForMessagesInThread:_thread.ID andNamespaceID:_namespaceId];
-    _messageProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
-    _messageProvider.delegate = self;
-    
-    [self.thread markAsRead];
-    
-    [_messageProvider refresh];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -169,11 +153,14 @@
     
     //[[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
     //[self.refreshControl endRefreshing];
+    
+    [self.delegate messagesTableViewController:self dataFetchDidFailWithError:error];
 }
 
 - (void)providerDataFetchCompleted:(INModelProvider*)provider
 {
     //[self.refreshControl endRefreshing];
+    [self.delegate messagesTableViewControllerDidCompleteDataFetch:self];
 }
 
 #pragma mark -
@@ -195,60 +182,6 @@
     controller.url = url;
     
     [self.navigationController  pushViewController:controller animated:YES];
-}
-
-#pragma mark -
-
-#pragma mark -
-
-- (void)moreSelected {
-    
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Reply to Lucy" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-    }]];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Forward Message" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-    }]];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Flag Message" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-    }]];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Mark as Unread" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-    }]];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        
-    }]];
-    
-    SkinProvider* skin = [SkinProvider sharedInstance];
-    
-    alert.view.tintColor = skin.tintColor;
-    
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)deleteSelected {
-    
-    [self.thread archive];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)replyAllSelected {
-    
-    INMessage * message = [[self.messageProvider items] objectAtIndex: 0];
-    
-    ComposeMessageViewController* controller = [[ComposeMessageViewController alloc] init];
-    controller.messageToReplyTo = message;
-    
-    NavigationController* navigationController = [[NavigationController alloc] initWithRootViewController:controller];
-    
-    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 @end
