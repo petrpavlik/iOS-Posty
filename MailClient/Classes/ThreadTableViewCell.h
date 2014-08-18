@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UnreadIndicatorView.h"
+#import "NumMessagesInThreadView.h"
 
 @interface ThreadTableViewCell : UITableViewCell
 
@@ -15,6 +16,7 @@
 @property(nonatomic, strong) UILabel* fromLabel;
 @property(nonatomic, strong) UILabel* snippetLabel;
 @property(nonatomic, strong) UILabel* dateLabel;
+@property(nonatomic, strong) NumMessagesInThreadView* numMessagesView;
 @property(nonatomic, strong) UnreadIndicatorView* unreadIndicatorView;
 
 - (void)setUnreadState;

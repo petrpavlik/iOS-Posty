@@ -50,6 +50,8 @@
     _textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _textView.textColor = skin.textColor;
     [_textView setKeyboardType:UIKeyboardTypeEmailAddress];
+    _textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _textView.autocorrectionType = UITextAutocorrectionTypeNo;
     _textView.delegate = _textViewDelegate;
     [self.contentView addSubview:_textView];
     

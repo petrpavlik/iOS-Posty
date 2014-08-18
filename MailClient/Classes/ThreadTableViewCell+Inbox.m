@@ -53,6 +53,13 @@
     self.fromLabel.text = participants;
     self.dateLabel.text = [DateFormatter stringFromDate:thread.lastMessageDate];
     
+    if (thread.messageIDs.count > 1) {
+        self.numMessagesView.label.text = @(thread.messageIDs.count).description;
+    }
+    else {
+        self.numMessagesView.label.text = nil;
+    }
+    
     if ([thread hasTagWithID:INTagIDUnread]) {
         
         self.unreadIndicatorView.hidden = NO;

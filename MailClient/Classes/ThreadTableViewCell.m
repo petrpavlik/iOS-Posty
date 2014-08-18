@@ -53,6 +53,7 @@
     _fromLabel.numberOfLines = 1;
     _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _fromLabel.textColor = skin.headerTextColor;
+    [_fromLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [contentView addSubview:_fromLabel];
     
     _dateLabel = [UILabel new];
@@ -60,12 +61,13 @@
     _dateLabel.numberOfLines = 1;
     _dateLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     _dateLabel.textColor = skin.textColor;
+    [_dateLabel setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [contentView addSubview:_dateLabel];
     
     _snippetLabel = [UILabel new];
     _snippetLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _snippetLabel.numberOfLines = 2;
-    _snippetLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    _snippetLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     _snippetLabel.textColor = skin.textColor;
     [contentView addSubview:_snippetLabel];
     
@@ -74,11 +76,16 @@
     [_unreadIndicatorView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [contentView addSubview:_unreadIndicatorView];
     
-    NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _dateLabel, _snippetLabel, _unreadIndicatorView);
+    _numMessagesView = [NumMessagesInThreadView new];
+    _numMessagesView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_numMessagesView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [contentView addSubview:_numMessagesView];
     
-    self.unreadStateConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[_unreadIndicatorView]-5-[_fromLabel]-[_dateLabel]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings];
+    NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _dateLabel, _snippetLabel, _unreadIndicatorView, _numMessagesView);
     
-    self.readStateConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[_fromLabel]-[_dateLabel]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings];
+    self.unreadStateConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[_unreadIndicatorView]-5-[_fromLabel]-[_dateLabel]-6-[_numMessagesView]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings];
+    
+    self.readStateConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[_fromLabel]-[_dateLabel]-6-[_numMessagesView]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings];
     
     [contentView addConstraints:_unreadStateConstraints];
     
@@ -86,7 +93,7 @@
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_snippetLabel(288)]" options:0 metrics:nil views:bindings]];
     
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[_fromLabel]-2-[_subjectLabel]-3-[_snippetLabel]-7-|" options:0 metrics:nil views:bindings]];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[_fromLabel]-2-[_subjectLabel]-1-[_snippetLabel]-7-|" options:0 metrics:nil views:bindings]];
 }
 
 - (void)setReadState {

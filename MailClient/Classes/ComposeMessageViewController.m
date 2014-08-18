@@ -26,6 +26,11 @@
 
 @end
 
+static inline UIViewAnimationOptions AnimationOptionsForCurve(UIViewAnimationCurve curve)
+{
+    return curve << 16;
+}
+
 @implementation ComposeMessageViewController
 
 - (void)viewDidLoad {
@@ -35,6 +40,9 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelSelected)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Send" style:UIBarButtonItemStyleDone target:self action:@selector(sendSelected)];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
     
     SkinProvider* skin = [SkinProvider sharedInstance];
     
@@ -268,5 +276,33 @@
     [_draft setTo:recepients];
 }
 
+#pragma mark -
+
+- (void)keyboardWillShowNotification:(NSNotification*)notification {
+    
+    CGRect keyboardEndFrameWindow;
+    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardEndFrameWindow];
+    CGRect keyboardEndFrameView = [self.view convertRect:keyboardEndFrameWindow fromView:nil];
+    
+    double keyboardTransitionDuration;
+    [[notification.userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&keyboardTransitionDuration];
+    
+    UIViewAnimationCurve keyboardTransitionAnimationCurve;
+    [[notification.userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&keyboardTransitionAnimationCurve];
+    
+    
+    
+    [UIView animateWithDuration:keyboardTransitionDuration delay:0 options:AnimationOptionsForCurve(keyboardTransitionAnimationCurve) animations:^{
+        
+        self.bodyTextView.contentInset = UIEdgeInsetsMake(132, 0, keyboardEndFrameView.size.height, 0);
+        self.bodyTextView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, keyboardEndFrameView.size.height, 0);
+        
+    } completion:nil];
+}
+
+- (void)keyboardWillHideNotification:(NSNotification*)notification {
+    
+    
+}
 
 @end
