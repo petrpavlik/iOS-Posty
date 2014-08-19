@@ -18,8 +18,8 @@
 @property(nonatomic, strong) UILabel* dateLabel;
 @property(nonatomic, strong) NumMessagesInThreadView* numMessagesView;
 @property(nonatomic, strong) UnreadIndicatorView* unreadIndicatorView;
+@property(nonatomic, strong) UIImageView* attachmentImageView;
 
-- (void)setUnreadState;
-- (void)setReadState;
+- (void)configureWithRead:(BOOL)isRead multipleMessages:(BOOL)hasMultipleMessages attachment:(BOOL)hasAttachment;
 
 @end

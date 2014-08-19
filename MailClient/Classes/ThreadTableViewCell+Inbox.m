@@ -60,16 +60,7 @@
         self.numMessagesView.label.text = nil;
     }
     
-    if ([thread hasTagWithID:INTagIDUnread]) {
-        
-        self.unreadIndicatorView.hidden = NO;
-        [self setUnreadState];
-    }
-    else {
-        
-        self.unreadIndicatorView.hidden = YES;
-        [self setReadState];
-    }
+    [self configureWithRead:![thread hasTagWithID:INTagIDUnread] multipleMessages:thread.messageIDs.count>1 attachment:NO];
 }
 
 @end

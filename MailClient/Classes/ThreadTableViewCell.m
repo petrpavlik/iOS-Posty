@@ -10,8 +10,7 @@
 
 @interface ThreadTableViewCell ()
 
-@property(nonatomic, strong) NSArray* unreadStateConstraints;
-@property(nonatomic, strong) NSArray* readStateConstraints;
+@property(nonatomic, strong) NSArray* constraints;
 
 @end
 
@@ -81,35 +80,62 @@
     [_numMessagesView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [contentView addSubview:_numMessagesView];
     
-    NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _dateLabel, _snippetLabel, _unreadIndicatorView, _numMessagesView);
+    _attachmentImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"icn-attachment"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    _attachmentImageView.tintColor = skin.headerTextColor;
+    _attachmentImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [_attachmentImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [_attachmentImageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [contentView addSubview:_attachmentImageView];
     
-    self.unreadStateConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[_unreadIndicatorView]-5-[_fromLabel]-[_dateLabel]-6-[_numMessagesView]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings];
-    
-    self.readStateConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[_fromLabel]-[_dateLabel]-6-[_numMessagesView]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings];
-    
-    [contentView addConstraints:_unreadStateConstraints];
-    
-    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_subjectLabel]-|" options:0 metrics:nil views:bindings]];
+    NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _dateLabel, _snippetLabel, _unreadIndicatorView, _numMessagesView, _attachmentImageView);
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[_snippetLabel(288)]" options:0 metrics:nil views:bindings]];
     
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-7-[_fromLabel]-2-[_subjectLabel]-1-[_snippetLabel]-7-|" options:0 metrics:nil views:bindings]];
 }
 
-- (void)setReadState {
+- (void)configureWithRead:(BOOL)isRead multipleMessages:(BOOL)hasMultipleMessages attachment:(BOOL)hasAttachment {
     
-    [self.contentView removeConstraints:_unreadStateConstraints];
-    [self.contentView removeConstraints:_readStateConstraints];
+    if (self.constraints) {
+        [self.contentView removeConstraints:self.constraints];
+    }
     
-    [self.contentView addConstraints:_readStateConstraints];
-}
-
-- (void)setUnreadState {
+    self.unreadIndicatorView.hidden = isRead;
+    self.numMessagesView.hidden = !hasMultipleMessages;
+    self.attachmentImageView.hidden = !hasAttachment;
     
-    [self.contentView removeConstraints:_unreadStateConstraints];
-    [self.contentView removeConstraints:_readStateConstraints];
+    NSMutableArray* constraints = [NSMutableArray new];
     
-    [self.contentView addConstraints:_unreadStateConstraints];
+    NSString* constraintTemplate = @"|-{0}[_fromLabel]-[_dateLabel]{1}-|";
+    
+    if (isRead) {
+        constraintTemplate = [constraintTemplate stringByReplacingOccurrencesOfString:@"{0}" withString:@""];
+    }
+    else {
+        constraintTemplate = [constraintTemplate stringByReplacingOccurrencesOfString:@"{0}" withString:@"[_unreadIndicatorView]-5-"];
+    }
+    
+    if (hasMultipleMessages) {
+        constraintTemplate = [constraintTemplate stringByReplacingOccurrencesOfString:@"{1}" withString:@"-6-[_numMessagesView]"];
+    }
+    else {
+        constraintTemplate = [constraintTemplate stringByReplacingOccurrencesOfString:@"{1}" withString:@""];
+    }
+    
+    NSDictionary* bindings = NSDictionaryOfVariableBindings(_subjectLabel, _fromLabel, _dateLabel, _snippetLabel, _unreadIndicatorView, _numMessagesView, _attachmentImageView);
+    
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:constraintTemplate options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings]];
+    
+    if (hasAttachment) {
+        [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_attachmentImageView]-4-[_subjectLabel]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings]];
+    }
+    else {
+        [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_subjectLabel]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:bindings]];
+    }
+    
+    [self.contentView addConstraints:constraints];
+    
+    self.constraints = constraints;
 }
 
 @end
