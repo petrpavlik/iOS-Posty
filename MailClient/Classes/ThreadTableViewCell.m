@@ -50,9 +50,10 @@
     _fromLabel = [UILabel new];
     _fromLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _fromLabel.numberOfLines = 1;
-    _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     _fromLabel.textColor = skin.headerTextColor;
     [_fromLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [_fromLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [contentView addSubview:_fromLabel];
     
     _dateLabel = [UILabel new];

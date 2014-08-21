@@ -32,6 +32,7 @@
     _label.translatesAutoresizingMaskIntoConstraints = NO;
     _label.font = font;
     _label.textColor = [UIColor whiteColor];
+    [_label setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self addSubview:_label];
     
     self.backgroundColor = skin.textColor;

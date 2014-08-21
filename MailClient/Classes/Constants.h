@@ -10,6 +10,8 @@
 
 extern NSString* const DidReceiveMailNotification;
 extern NSString* const MessageIdKey;
+extern NSString* const MailSignatureKey;
+extern NSString* const MailSignatureIsHTMLKey;
 
 @interface Constants : NSObject
 

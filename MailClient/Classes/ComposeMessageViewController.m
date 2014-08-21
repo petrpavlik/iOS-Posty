@@ -10,6 +10,7 @@
 #import <Inbox.h>
 #import "InputTableViewCell.h"
 #import "ContactsTableViewCell.h"
+#import "ComposeMessageInputView.h"
 
 @interface ComposeMessageViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -54,6 +55,8 @@ static inline UIViewAnimationOptions AnimationOptionsForCurve(UIViewAnimationCur
     _bodyTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _bodyTextView.contentInset = UIEdgeInsetsMake(132, 0, 0, 0);
     [self.view addSubview:_bodyTextView];
+    
+    //_bodyTextView.inputAccessoryView = [[ComposeMessageInputView alloc] initWithFrame:CGRectMake(0, 0, 320, 44) inputViewStyle:UIInputViewStyleKeyboard];
     
     _headerTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, -132, self.view.bounds.size.width, 132) style:UITableViewStylePlain];
     _headerTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;

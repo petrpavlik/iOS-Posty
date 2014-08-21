@@ -16,6 +16,21 @@
 
 @implementation AppDelegate
             
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString* mailSignature = [userDefaults stringForKey:MailSignatureKey];
+    
+    if (!mailSignature) {
+        
+        mailSignature = @"<br/><br/>Sent with <a href=\"http://postyapp.com\">Posty for iOS</a>";
+        [userDefaults setObject:mailSignature forKey:MailSignatureKey];
+        [userDefaults setBool:YES forKey:MailSignatureIsHTMLKey];
+        [userDefaults synchronize];
+    }
+    
+    return YES;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.

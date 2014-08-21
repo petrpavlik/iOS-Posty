@@ -13,6 +13,8 @@ NSString* const DidReceiveMailNotification = @"DidReceiveMailNotification";
 
 // Dictionary keys
 NSString* const MessageIdKey = @"messageId";
+NSString* const MailSignatureKey = @"mailSignature";
+NSString* const MailSignatureIsHTMLKey = @"mailSignatureIsHTML";
 
 @implementation Constants
 

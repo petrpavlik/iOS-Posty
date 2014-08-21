@@ -23,6 +23,8 @@
 
 #import "MailSummaryView.h"
 #import "SpamController.h"
+#import "SettingsTableViewController.h"
+
 
 @interface ThreadsTableViewController () <INModelProviderDelegate, TagsViewControllerDelegate, SpanControllerDelegate>
 
@@ -254,8 +256,12 @@
 
 - (void)settingsSelected {
     
-    [[INAPIManager shared] unauthenticate];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    SettingsTableViewController* settingsController = [[SettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [self.navigationController pushViewController:settingsController animated:YES];
+    
+    //[[INAPIManager shared] unauthenticate];
+    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -
@@ -263,6 +269,9 @@
 - (void)tagsViewController:(TagsTableViewController *)controller didSelectTag:(INTag *)tag {
     
     self.title = tag.name;
+    
+    UIButton* button = (UIButton*)self.navigationItem.titleView;
+    [button setTitle:tag.name forState:UIControlStateNormal];
     
     self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"tagIDs = '%@'", tag.ID]];
     
