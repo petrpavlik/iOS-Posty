@@ -21,6 +21,8 @@
         self.subjectLabel.text = @"No subject";
     }
     
+    
+    
     NSString* from = @"From: ";
     for (NSDictionary* fromDictionary in message.from) {
         
@@ -45,7 +47,6 @@
             [self.fromLabel addLinkToURL:url withRange:[self.fromLabel.text rangeOfString:fromDictionary[@"email"]]];
         }
     }
-    
     
     NSString* to = @"To: ";
     for (NSDictionary* toDictionary in message.to) {
@@ -98,6 +99,20 @@
                 [self.ccLabel addLinkToURL:url withRange:[self.ccLabel.text rangeOfString:ccDictionary[@"email"]]];
             }
         }
+        
+        for (NSDictionary* ccDictionary in message.cc) {
+            
+            NSString* urlString = [NSString stringWithFormat:@"mailto:%@", ccDictionary[@"email"]];
+            NSURL* url = [NSURL URLWithString:urlString];
+            
+            if ([ccDictionary[@"name"] length]) {
+                [self.ccLabel addLinkToURL:url withRange:[self.ccLabel.text rangeOfString:ccDictionary[@"name"]]];
+            }
+            else {
+                [self.ccLabel addLinkToURL:url withRange:[self.ccLabel.text rangeOfString:ccDictionary[@"email"]]];
+            }
+        }
+
     }
     else {
         self.ccLabel.text = @"";

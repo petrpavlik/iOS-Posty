@@ -18,8 +18,13 @@
         //TODO: add default formating right after <head>
         NSString* css = @"<style> body { color: #677277; font-size: 17px; font-family: \"Helvetica Neue\"; } a { color: #007AFF; text-decoration: none; } </style>";
         
+        NSString* body = message.body;
+        
         NSRange range = [message.body rangeOfString:@"<head>"];
-        NSString* body = [message.body stringByReplacingCharactersInRange:NSMakeRange(range.location+range.length, 0) withString:css];
+        
+        if (range.location != NSNotFound) {
+            body = [message.body stringByReplacingCharactersInRange:NSMakeRange(range.location+range.length, 0) withString:css];
+        }
         
         [self loadHTMLString:body baseURL:nil];
     }

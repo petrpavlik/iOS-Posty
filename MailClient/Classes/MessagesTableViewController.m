@@ -113,6 +113,7 @@
         cell.snippetLabel.text = message.snippet;
         
         [cell.headerView setupWithMessage:message];
+        cell.headerView.subjectLabel.text = nil;
         
         return cell;
     }

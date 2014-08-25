@@ -9,10 +9,12 @@
 #import "WebViewController.h"
 #import <WebKit/WebKit.h>
 
-@interface WebViewController () <WKNavigationDelegate>
+@interface WebViewController () <WKNavigationDelegate, UIScrollViewDelegate>
 
 @property(nonatomic, strong) WKWebView* webView;
 @property(nonatomic, strong) UIView* loadingIndicator;
+@property(nonatomic, strong) NSNumber* lastContentOffsetY;
+@property(nonatomic, strong) UIView* statusBarBackgroundView;
 
 @end
 
@@ -22,6 +24,7 @@
     
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress" context:nil];
+    self.webView.scrollView.delegate = nil;
 }
 
 - (void)viewDidLoad {
@@ -30,11 +33,23 @@
     
     SkinProvider* skin = [SkinProvider sharedInstance];
     
+    //self.navigationController.hidesBarsOnSwipe = YES;
+    
     _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _webView.navigationDelegate = self;
     _webView.allowsBackForwardNavigationGestures = YES;
+    _webView.scrollView.delegate = self;
     [self.view addSubview:_webView];
+    
+    _statusBarBackgroundView = [UIView new];
+    _statusBarBackgroundView.translatesAutoresizingMaskIntoConstraints = NO;
+    _statusBarBackgroundView.backgroundColor = skin.navigationBarColor;
+    _statusBarBackgroundView.alpha = 0;
+    [self.view addSubview:_statusBarBackgroundView];
+    
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_statusBarBackgroundView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_statusBarBackgroundView)]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_statusBarBackgroundView(20)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_statusBarBackgroundView)]];
     
     _loadingIndicator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 2)];
     _loadingIndicator.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -115,6 +130,40 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.loadingIndicator.frame = CGRectMake(0, 0, self.view.bounds.size.width*self.webView.estimatedProgress, 2);
         }];
+    }
+}
+
+#pragma mark -
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (!self.lastContentOffsetY) {
+        
+        self.lastContentOffsetY = @(scrollView.contentOffset.y);
+        return;
+    }
+    
+    CGFloat diff = scrollView.contentOffset.y - self.lastContentOffsetY.doubleValue;
+    
+    if (diff > 64) {
+        
+        NSLog(@"hiding %f", diff);
+        
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        
+        _statusBarBackgroundView.alpha = 1;
+        
+        self.lastContentOffsetY = @(scrollView.contentOffset.y);
+    }
+    else if (diff < -64) {
+        
+        NSLog(@"showing %f", diff);
+        
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+        
+        _statusBarBackgroundView.alpha = 0;
+        
+        self.lastContentOffsetY = @(scrollView.contentOffset.y);
     }
 }
 

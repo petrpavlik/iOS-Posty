@@ -38,7 +38,7 @@
     _fromLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _fromLabel.textColor = skin.textColor;
-    _fromLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};    
+    _fromLabel.linkAttributes = @{(NSString*)kCTForegroundColorAttributeName: skin.tintColor};
     
     [self addSubview:_fromLabel];
     
@@ -46,14 +46,14 @@
     _toLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _toLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     _toLabel.textColor = skin.textColor;
-    _toLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};
+    _toLabel.linkAttributes = @{(NSString*)kCTForegroundColorAttributeName: skin.tintColor};
     [self addSubview:_toLabel];
     
     _ccLabel = [TTTAttributedLabel new];
     _ccLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _ccLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     _ccLabel.textColor = skin.textColor;
-    _ccLabel.linkAttributes = @{NSForegroundColorAttributeName: self.tintColor};
+    _ccLabel.linkAttributes = @{(NSString*)kCTForegroundColorAttributeName: skin.tintColor};
     [self addSubview:_ccLabel];
     
     _dateLabel = [UILabel new];
