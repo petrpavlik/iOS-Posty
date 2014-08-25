@@ -70,6 +70,8 @@
             }
             else {
                 UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Could not fetch a message" message:error.description preferredStyle:UIAlertControllerStyleAlert];
+                alert.view.accessibilityIdentifier = @"MessageMoreOptions";
+                
                 [self presentViewController:alert animated:YES completion:nil];
             }
         }];

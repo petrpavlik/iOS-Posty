@@ -28,15 +28,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    SkinProvider* skin = [SkinProvider sharedInstance];
+    
     _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _webView.navigationDelegate = self;
     _webView.allowsBackForwardNavigationGestures = YES;
     [self.view addSubview:_webView];
     
-    _loadingIndicator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)];
+    _loadingIndicator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 2)];
     _loadingIndicator.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    _loadingIndicator.backgroundColor = self.view.tintColor;
+    _loadingIndicator.backgroundColor = skin.tintColor;
     [self.view addSubview:_loadingIndicator];
     
     UIBarButtonItem* shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-upload"] style:UIBarButtonItemStylePlain target:self action:@selector(bookmarksSelected)];
@@ -60,7 +62,7 @@
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     
     [UIView animateWithDuration:0.3 animations:^{
-        self.loadingIndicator.frame = CGRectMake(0, 0, self.view.bounds.size.width*0.05, 1);
+        self.loadingIndicator.frame = CGRectMake(0, 0, self.view.bounds.size.width*0.05, 2);
     }];
     
     self.navigationController.interactivePopGestureRecognizer.enabled = !webView.canGoBack;
@@ -75,7 +77,7 @@
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     
-    self.loadingIndicator.frame = CGRectMake(0, 0, 0, 1);
+    self.loadingIndicator.frame = CGRectMake(0, 0, 0, 2);
 }
 
 #pragma mark -
@@ -106,12 +108,12 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
     if (self.webView.estimatedProgress == 1.0) {
-        self.loadingIndicator.frame = CGRectMake(0, 0, 0, 1);
+        self.loadingIndicator.frame = CGRectMake(0, 0, 0, 2);
     }
     else if (self.webView.estimatedProgress > 0.05) {
         
         [UIView animateWithDuration:0.3 animations:^{
-            self.loadingIndicator.frame = CGRectMake(0, 0, self.view.bounds.size.width*self.webView.estimatedProgress, 1);
+            self.loadingIndicator.frame = CGRectMake(0, 0, self.view.bounds.size.width*self.webView.estimatedProgress, 2);
         }];
     }
 }

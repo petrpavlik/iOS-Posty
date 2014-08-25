@@ -25,6 +25,8 @@
 #import "SpamController.h"
 #import "SettingsTableViewController.h"
 
+#import <Heap.h>
+
 
 @interface ThreadsTableViewController () <INModelProviderDelegate, TagsViewControllerDelegate, SpanControllerDelegate>
 
@@ -49,6 +51,10 @@
     
     self.title = @"Inbox";
     
+    if ([INAPIManager shared].namespaceEmailAddresses.count) {
+        [Heap identify:@{@"email": [INAPIManager shared].namespaceEmailAddresses[0]}];
+    }
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"document-edit"] style:UIBarButtonItemStylePlain target:self action:@selector(composeEmailSelected)];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icn-gear"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsSelected)];
@@ -71,6 +77,7 @@
     self.tableView.backgroundColor = skin.cellBackgroundColor;
     self.tableView.separatorColor = skin.cellSeparatorColor;
     self.tableView.tableFooterView = [UIView new];
+    //self.tableView.separatorInset = UIEdgeInsetsMake(0, 8, 0, 0); //there is a bug
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl = refreshControl;

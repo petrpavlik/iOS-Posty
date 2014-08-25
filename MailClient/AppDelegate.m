@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import <Inbox.h>
+#import <Heap.h>
 
 @interface AppDelegate ()
 
@@ -34,6 +35,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [Heap setAppId:@"2401352668"];
     
     [Parse setApplicationId:@"QHYdEt23QGRfBQyB8OkegApK6nzoPdYklL02DhVz"
                   clientKey:@"6q0VjcUCBsDn7zrQY6pzy1mu9kGePIgQuXAszrym"];
