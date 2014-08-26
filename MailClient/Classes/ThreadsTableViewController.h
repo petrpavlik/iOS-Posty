@@ -10,4 +10,6 @@
 
 @interface ThreadsTableViewController : UITableViewController
 
+- (void)fetchNewThreadsWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
+
 @end

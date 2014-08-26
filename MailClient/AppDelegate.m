@@ -10,6 +10,10 @@
 #import <Parse/Parse.h>
 #import <Inbox.h>
 #import <Heap.h>
+#import <Crashlytics/Crashlytics.h>
+
+#import "ThreadsTableViewController.h"
+#import "NSTimer+Block.h"
 
 @interface AppDelegate ()
 
@@ -36,6 +40,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [Crashlytics startWithAPIKey:@"c8411cf93fbcb20e8dd6336cd727e16241dd5c68"];
+    
     [Heap setAppId:@"2401352668"];
     
     [Parse setApplicationId:@"QHYdEt23QGRfBQyB8OkegApK6nzoPdYklL02DhVz"
@@ -49,7 +55,9 @@
     [application registerUserNotificationSettings:notificationSettings];
     
     self.launchNotificationUserInfo = [launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        
+    
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
     return YES;
 }
 
@@ -118,6 +126,32 @@
         
     [[NSNotificationCenter defaultCenter] postNotificationName:DidReceiveMailNotification object:nil userInfo:@{MessageIdKey: messageId}];
     //}
+}
+
+#pragma mark - background fetch
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    NSLog(@"should perform fetch");
+    
+    if (self.threadsControllerForBackgroundFetching) {
+        
+        __weak NSTimer* fetchWindowTimeoutTimer = [NSTimer scheduledTimerWithTimeInterval:20 block:^(NSTimer *timer) {
+            
+            completionHandler(UIBackgroundFetchResultFailed);
+            
+        } userInfo:nil repeats:NO];
+        
+        ThreadsTableViewController* threadsController = self.threadsControllerForBackgroundFetching;
+        [threadsController fetchNewThreadsWithCompletionHandler:^(UIBackgroundFetchResult fetchResult) {
+            
+            [fetchWindowTimeoutTimer invalidate];
+            completionHandler(fetchResult);
+        }];
+    }
+    else {
+        completionHandler(UIBackgroundFetchResultNoData);
+    }
 }
 
 @end

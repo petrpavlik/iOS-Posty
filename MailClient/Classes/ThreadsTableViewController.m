@@ -27,6 +27,7 @@
 
 #import <Heap.h>
 
+typedef void (^BackgroundFetchCompletionBlock)(UIBackgroundFetchResult);
 
 @interface ThreadsTableViewController () <INModelProviderDelegate, TagsViewControllerDelegate, SpanControllerDelegate>
 
@@ -36,6 +37,8 @@
 
 @property(nonatomic, strong) MailSummaryView* summaryView;
 @property(nonatomic, strong) SpamController* spamController;
+
+@property(nonatomic, strong) BackgroundFetchCompletionBlock backgroundFetchCompletionBlock;
 
 @end
 
@@ -93,21 +96,15 @@
     _spamController = [SpamController new];
     _spamController.delegate = self;
     
-    INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
-    
-   // NSParameterAssert(namespace);
-    
-    self.threadProvider = [namespace newThreadProvider];
-    self.threadProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessageDate" ascending:NO]];
-    self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:@"tagIDs = 'inbox'"];
-    self.threadProvider.itemRange = NSMakeRange(0, 100);
-    self.threadProvider.delegate = self;
-    
-    [self refresh];
+    if ([[[INAPIManager shared] namespaces] firstObject]) {
+        [self initNamespace];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForegroundNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMailNotification:) name:DidReceiveMailNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(namespaceDidChangeNotification:) name:INNamespacesChangedNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -221,24 +218,43 @@
 
 - (void)provider:(INModelProvider*)provider dataAltered:(INModelProviderChangeSet *)changeSet
 {
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
     
-    /*[self.tableView beginUpdates];
+    [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:[changeSet indexPathsFor:INModelProviderChangeRemove] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView insertRowsAtIndexPaths:[changeSet indexPathsFor:INModelProviderChangeAdd] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView reloadRowsAtIndexPaths:[changeSet indexPathsFor:INModelProviderChangeUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView endUpdates];*/
+    [self.tableView endUpdates];
 }
 
 - (void)provider:(INModelProvider*)provider dataFetchFailed:(NSError *)error
 {
     //[[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    
+    //NSString* title = [NSString stringWithFormat:@"Last updated %@", [DateFormatter stringFromDate:[NSDate date]]];
+    //self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:title];
+    
     [self.refreshControl endRefreshing];
+    
+    if (self.backgroundFetchCompletionBlock) {
+        
+        self.backgroundFetchCompletionBlock(UIBackgroundFetchResultFailed);
+        self.backgroundFetchCompletionBlock = nil;
+    }
 }
 
 - (void)providerDataFetchCompleted:(INModelProvider*)provider
 {
+    //NSString* title = [NSString stringWithFormat:@"Last updated %@", [DateFormatter stringFromDate:[NSDate date]]];
+    //self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:title];
+    
     [self.refreshControl endRefreshing];
+    
+    if (self.backgroundFetchCompletionBlock) {
+        
+        self.backgroundFetchCompletionBlock(UIBackgroundFetchResultNewData);
+        self.backgroundFetchCompletionBlock = nil;
+    }
 }
 
 #pragma mark -
@@ -301,6 +317,11 @@
     [self presentMessageWithId:messageId];
 }
 
+- (void)namespaceDidChangeNotification:(NSNotification*)notification {
+    
+    [self initNamespace];
+}
+
 #pragma mark -
 
 - (void)presentMessageWithId:(NSString*)messageId {
@@ -318,6 +339,38 @@
 - (void)spamController:(SpamController *)controller didDetectSpamStatus:(BOOL)spamReceived {
     
     self.summaryView.gotSpamToday = spamReceived;
+}
+
+#pragma mark - background fetch
+
+- (void)fetchNewThreadssWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    [Heap track:@"Background fetch requested"];
+    
+    self.backgroundFetchCompletionBlock = completionHandler;
+    
+    if (self.threadProvider && !self.threadProvider.isRefreshing) {
+        [self.threadProvider refresh];
+    }
+}
+
+- (void)initNamespace {
+    
+    if (self.threadProvider) { // Temporary solution to avoid collisions
+        return;
+    }
+    
+    INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
+    
+    // NSParameterAssert(namespace);
+    
+    self.threadProvider = [namespace newThreadProvider];
+    self.threadProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessageDate" ascending:NO]];
+    self.threadProvider.itemFilterPredicate = [NSPredicate predicateWithFormat:@"tagIDs = 'inbox'"];
+    self.threadProvider.itemRange = NSMakeRange(0, 100);
+    self.threadProvider.delegate = self;
+    
+    [self refresh];
 }
 
 @end

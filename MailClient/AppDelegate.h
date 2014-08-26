@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class ThreadsTableViewController;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property(nonatomic, strong) NSDictionary* launchNotificationUserInfo;
+
+@property(nonatomic, weak) ThreadsTableViewController* threadsControllerForBackgroundFetching;
 
 @end
 

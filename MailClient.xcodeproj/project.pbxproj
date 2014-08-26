@@ -14,6 +14,8 @@
 		4B2BFA2419A22D350081F597 /* NumMessagesInThreadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BFA2319A22D350081F597 /* NumMessagesInThreadView.m */; };
 		4B2F507B197BB796000ADF06 /* MessagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2F507A197BB796000ADF06 /* MessagesTableViewController.m */; };
 		4B2F507E197BC983000ADF06 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2F507D197BC983000ADF06 /* MessageViewController.m */; };
+		4B41052419AC99400046F60F /* NSTimer+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B41052319AC99400046F60F /* NSTimer+Block.m */; };
+		4B41052719AC9E420046F60F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B41052619AC9E420046F60F /* Crashlytics.framework */; };
 		4B654EAB199642B6004C2D13 /* MessageHeaderView+InboxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B654EAA199642B6004C2D13 /* MessageHeaderView+InboxKit.m */; };
 		4B654EAE19964572004C2D13 /* UIWebView+InboxKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B654EAD19964572004C2D13 /* UIWebView+InboxKit.m */; };
 		4B654EB119968D75004C2D13 /* ContactsTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B654EB019968D75004C2D13 /* ContactsTextView.m */; };
@@ -82,6 +84,9 @@
 		4B2F507A197BB796000ADF06 /* MessagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagesTableViewController.m; path = Classes/MessagesTableViewController.m; sourceTree = "<group>"; };
 		4B2F507C197BC983000ADF06 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageViewController.h; path = Classes/MessageViewController.h; sourceTree = "<group>"; };
 		4B2F507D197BC983000ADF06 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageViewController.m; path = Classes/MessageViewController.m; sourceTree = "<group>"; };
+		4B41052219AC99400046F60F /* NSTimer+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimer+Block.h"; path = "Classes/NSTimer+Block.h"; sourceTree = "<group>"; };
+		4B41052319AC99400046F60F /* NSTimer+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimer+Block.m"; path = "Classes/NSTimer+Block.m"; sourceTree = "<group>"; };
+		4B41052619AC9E420046F60F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		4B654EA9199642B6004C2D13 /* MessageHeaderView+InboxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MessageHeaderView+InboxKit.h"; path = "Classes/MessageHeaderView+InboxKit.h"; sourceTree = "<group>"; };
 		4B654EAA199642B6004C2D13 /* MessageHeaderView+InboxKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MessageHeaderView+InboxKit.m"; path = "Classes/MessageHeaderView+InboxKit.m"; sourceTree = "<group>"; };
 		4B654EAC19964572004C2D13 /* UIWebView+InboxKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+InboxKit.h"; path = "Classes/UIWebView+InboxKit.h"; sourceTree = "<group>"; };
@@ -163,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCCA2AF02CEA4A62AC0824E6 /* libPods.a in Frameworks */,
+				4B41052719AC9E420046F60F /* Crashlytics.framework in Frameworks */,
 				4BE323B919924E5100071AEA /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,6 +183,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B41052119AC992F0046F60F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				4B41052219AC99400046F60F /* NSTimer+Block.h */,
+				4B41052319AC99400046F60F /* NSTimer+Block.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
 		4B6A1CAE1998D5D4000CFFF6 /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +247,7 @@
 		4BFAF29F197A6BF60040580C /* MailClient */ = {
 			isa = PBXGroup;
 			children = (
+				4B41052119AC992F0046F60F /* Category */,
 				4BE323BD199284DA00071AEA /* Model */,
 				4BE323B719924E3900071AEA /* MailClient.entitlements */,
 				4BA0A25D19812314009C98F8 /* HTML */,
@@ -355,6 +371,7 @@
 		BC4C075B4AB343EA90E360C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4B41052619AC9E420046F60F /* Crashlytics.framework */,
 				4BE323B819924E5100071AEA /* CloudKit.framework */,
 				1EBE9880C37D4E399A6E7904 /* libPods.a */,
 			);
@@ -373,6 +390,7 @@
 				4BFAF29A197A6BF60040580C /* Frameworks */,
 				4BFAF29B197A6BF60040580C /* Resources */,
 				5AE432FE500F4E09868767F8 /* Copy Pods Resources */,
+				4B41052519AC9E150046F60F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -414,6 +432,9 @@
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = JL8TC3L46B;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};
@@ -465,6 +486,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4B41052519AC9E150046F60F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run c8411cf93fbcb20e8dd6336cd727e16241dd5c68 565d3aea19ccb3b8fed040645e0886ccd359a3c0fb1c1b62d92aa33cc98fa14e";
+		};
 		5AE432FE500F4E09868767F8 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -528,6 +562,7 @@
 				4B81AB45198EFCD200D0FF3A /* WebViewController.m in Sources */,
 				4BA1F5A2198D2DC2008352ED /* ThreadsViewController.m in Sources */,
 				4B7CBC561994136200F7DF76 /* MessageTableViewCell.m in Sources */,
+				4B41052419AC99400046F60F /* NSTimer+Block.m in Sources */,
 				4B654EAB199642B6004C2D13 /* MessageHeaderView+InboxKit.m in Sources */,
 				4BE3628D199FB06600217E09 /* QuickReplyHeaderView.m in Sources */,
 				4BE36287199F9CE600217E09 /* MailSummaryView.m in Sources */,
@@ -659,6 +694,10 @@
 				CODE_SIGN_ENTITLEMENTS = MailClient/MailClient.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MailClient/MailClient.pch";
 				INFOPLIST_FILE = MailClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -677,6 +716,10 @@
 				CODE_SIGN_ENTITLEMENTS = MailClient/MailClient.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MailClient/MailClient.pch";
 				INFOPLIST_FILE = MailClient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
