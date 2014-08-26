@@ -42,6 +42,17 @@
     
     [Crashlytics startWithAPIKey:@"c8411cf93fbcb20e8dd6336cd727e16241dd5c68"];
     
+    NSLocale* currentLocale = [NSLocale currentLocale];
+    NSString* localeIdentifier = [currentLocale objectForKey:NSLocaleIdentifier];
+    NSString* languageCode = [currentLocale objectForKey:NSLocaleLanguageCode];
+    NSCalendar* calendar = [currentLocale objectForKey:NSLocaleCalendar];
+    NSString* measurementSystem = [currentLocale objectForKey:NSLocaleMeasurementSystem];
+    
+    [Crashlytics setObjectValue:localeIdentifier forKey:@"Locale Identifier"];
+    [Crashlytics setObjectValue:languageCode forKey:@"Language Code"];
+    [Crashlytics setObjectValue:calendar.calendarIdentifier forKey:@"Calendar"];
+    [Crashlytics setObjectValue:measurementSystem forKey:@"Measurement System"];
+    
     [Heap setAppId:@"2401352668"];
     
     [Parse setApplicationId:@"QHYdEt23QGRfBQyB8OkegApK6nzoPdYklL02DhVz"

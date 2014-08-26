@@ -26,6 +26,7 @@
 #import "SettingsTableViewController.h"
 
 #import <Heap.h>
+#import <Crashlytics/Crashlytics.h>
 
 typedef void (^BackgroundFetchCompletionBlock)(UIBackgroundFetchResult);
 
@@ -53,10 +54,6 @@ typedef void (^BackgroundFetchCompletionBlock)(UIBackgroundFetchResult);
     [super viewDidLoad];
     
     self.title = @"Inbox";
-    
-    if ([INAPIManager shared].namespaceEmailAddresses.count) {
-        [Heap identify:@{@"email": [INAPIManager shared].namespaceEmailAddresses[0]}];
-    }
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"document-edit"] style:UIBarButtonItemStylePlain target:self action:@selector(composeEmailSelected)];
     
@@ -218,13 +215,13 @@ typedef void (^BackgroundFetchCompletionBlock)(UIBackgroundFetchResult);
 
 - (void)provider:(INModelProvider*)provider dataAltered:(INModelProviderChangeSet *)changeSet
 {
-    //[self.tableView reloadData];
+    [self.tableView reloadData];
     
-    [self.tableView beginUpdates];
+    /*[self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:[changeSet indexPathsFor:INModelProviderChangeRemove] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView insertRowsAtIndexPaths:[changeSet indexPathsFor:INModelProviderChangeAdd] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView reloadRowsAtIndexPaths:[changeSet indexPathsFor:INModelProviderChangeUpdate] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView endUpdates];
+    [self.tableView endUpdates];*/
 }
 
 - (void)provider:(INModelProvider*)provider dataFetchFailed:(NSError *)error
@@ -360,9 +357,11 @@ typedef void (^BackgroundFetchCompletionBlock)(UIBackgroundFetchResult);
         return;
     }
     
-    INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
+    [Heap identify:@{@"email": [INAPIManager shared].namespaceEmailAddresses[0]}];
+    [Crashlytics setUserIdentifier:[INAPIManager shared].namespaceEmailAddresses[0]];
+    [Crashlytics setUserEmail:[INAPIManager shared].namespaceEmailAddresses[0]];
     
-    // NSParameterAssert(namespace);
+    INNamespace * namespace = [[[INAPIManager shared] namespaces] firstObject];
     
     self.threadProvider = [namespace newThreadProvider];
     self.threadProvider.itemSortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"lastMessageDate" ascending:NO]];
