@@ -53,6 +53,9 @@ typedef void (^BackgroundFetchCompletionBlock)(UIBackgroundFetchResult);
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    appDelegate.threadsControllerForBackgroundFetching = self;
+    
     self.title = @"Inbox";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"document-edit"] style:UIBarButtonItemStylePlain target:self action:@selector(composeEmailSelected)];
@@ -235,6 +238,7 @@ typedef void (^BackgroundFetchCompletionBlock)(UIBackgroundFetchResult);
     
     if (self.backgroundFetchCompletionBlock) {
         
+        NSLog(@"background fetch did fail");
         self.backgroundFetchCompletionBlock(UIBackgroundFetchResultFailed);
         self.backgroundFetchCompletionBlock = nil;
     }
@@ -249,6 +253,7 @@ typedef void (^BackgroundFetchCompletionBlock)(UIBackgroundFetchResult);
     
     if (self.backgroundFetchCompletionBlock) {
         
+        NSLog(@"background fetch did complete");
         self.backgroundFetchCompletionBlock(UIBackgroundFetchResultNewData);
         self.backgroundFetchCompletionBlock = nil;
     }
@@ -340,7 +345,7 @@ typedef void (^BackgroundFetchCompletionBlock)(UIBackgroundFetchResult);
 
 #pragma mark - background fetch
 
-- (void)fetchNewThreadssWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+- (void)fetchNewThreadsWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     [Heap track:@"Background fetch requested"];
     
